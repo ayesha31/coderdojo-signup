@@ -1,0 +1,16 @@
+#messages {
+  color: lightgrey;
+}
+.panel {
+  margin-top: 50px;
+}
+.control-checkbox {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  height: 28px;
+  width: 100%;
+}
+.btn {
+  margin-top: 28px;
+  width: 100%;
+}

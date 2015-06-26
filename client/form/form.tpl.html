@@ -1,0 +1,62 @@
+<div class="container">
+	<div class="row">
+		<h1 class="col-sm-12">Coder Dojo @ Bankwest Term 3 Sign Up</h1> 
+	</div>
+	<div class="row">
+		<form>
+			<div class="form-group">
+				<label for="userName" class="col-sm-12 control-label">Your Name</label>
+				<input type="text" class="form-control" id="userName" ng-model="signup.name">
+			</div>
+			<h3>Ninja Information</h3>
+			<div class="row">
+				<div class="col-xs-10" ng-repeat="ninja in signup.ninjaInformation">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="ninjaName" class="control-label">Name</label>
+							<input type="text" class="form-control" id="ninjaName" ng-model="ninja.name">
+						</div>
+					</div>
+					<div class="col-lg-2">
+						<div class="form-group">
+							<label for="ninjaAge" class="control-label">Age</label>
+							<input type="number" class="form-control" id="ninjaAge" min="6" max="18" ng-model="ninja.age">
+						</div>
+					</div>
+					<div class="col-lg-2">
+						<div class="form-group">
+							<label for="ninjaLaptop" class="control-label">Laptop Required</label>
+								<input type="checkbox" class="control-checkbox form-control" id="ninjaLaptop" ng-model="ninja.laptopRequired">
+						</div>
+					</div>
+					<div class="col-lg-2">
+						<button type="button" class="btn btn-danger btn-remove" ng-click="removeNinja(ninja)">Remove</button>
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<button type="button" class="btn btn-success btn-remove" ng-click="addNinja()">Add</button>
+				</div>
+			</div>
+			<h3>Activities</h3>
+			<div class="row">
+				<div class="form-group col-lg-12">
+					<label for="activities" class="control-label">We run a range of activities for the ninjas, what actvities would they be interested in? (Tick all that apply)</label>
+					<div class="checkbox" ng-repeat="activity in signup.activities">
+					  <label>
+					    <input type="checkbox" ng-model="activity.selected" >
+					    {{activity.name}}
+					  </label>
+					</div>
+				</div>
+			</div>
+			<h3>Dietary Considerations</h3>
+			<div class="row">
+				<div class="form-group col-lg-12">
+					<label for="dietaryConsideration" class="control-label">Some food may be supplied as part of Coder Dojo, do your Ninjas have any special dietary requirements?</label>
+					<textarea rows="4" columns="50" id="dietaryConsideration" class="form-control"></textarea>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary" ng-click="registerNinja()">Submit</button>
+		</form>
+	</div>
+</div>
