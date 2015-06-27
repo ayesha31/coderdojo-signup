@@ -1,11 +1,9 @@
 "use strict";
 
-var mongoose    = require('mongoose'),
-    morgan      = require('morgan'),
+var morgan      = require('morgan'),
     bodyParser  = require('body-parser'),
     middle      = require('./middleware');
 
-mongoose.connect(process.env.DB_URL || 'mongodb://localhost/coder-dojo-signup');
 /*
  * Include all your global env variables here.
 */

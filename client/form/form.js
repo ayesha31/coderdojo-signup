@@ -4,6 +4,7 @@ angular.module('coder-dojo-signup')
 
 	$scope.signup = {
 		name: '',
+		email: '',
 		ninjaInformation: [
 			{name: '', age: '', laptopRequired: false }
 		],
@@ -31,9 +32,9 @@ angular.module('coder-dojo-signup')
 		console.log('registering');
 
 		var req = {
-			method: 'GET',
+			method: 'POST',
 			url: '/api/registerNinja',
-			params: $scope.signup
+			data: $scope.signup
 		};
 
 		$http(req)

@@ -1,7 +1,19 @@
-var mongoose = require('mongoose');
+var mongodb = require('mongodb').MongoClient;
 
-module.exports = function(app) {
-	app.get('/api/registerNinja', function(req, res) {
+module.exports = function(app, db) {
+	app.post('/api/registerNinja', function(req, res) {
+		var registration = db.get('registration');
 		
+		registration.insert(req.body)
+			.success(function(doc) {
+				console.log(doc);
+
+				res.status(200).end();
+			})
+			.error(function(err) {
+				console.log(err);
+
+				res.status(503).end();
+			});
 	});
 };
