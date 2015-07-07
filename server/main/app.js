@@ -10,6 +10,7 @@ routers.NoteRouter = NoteRouter;
 require('./config.js')(app, express, routers);
 
 require('../form/ninjaRegistration.js')(app, db);
+require('../view/getNinjaList.js')(app, db);
 
 require('../note/note_routes.js')(NoteRouter);
 

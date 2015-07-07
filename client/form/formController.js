@@ -6,7 +6,7 @@ angular.module('coder-dojo-signup')
 		name: '',
 		email: '',
 		ninjaInformation: [
-			{name: '', age: '', laptopRequired: false }
+			{ name: '', age: '', laptopRequired: false }
 		],
 		activities: [
 			{ name: 'Scratch', selected: false },
