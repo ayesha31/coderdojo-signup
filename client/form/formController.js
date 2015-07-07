@@ -10,6 +10,7 @@ angular.module('coder-dojo-signup')
 		],
 		activities: [
 			{ name: 'Scratch', selected: false },
+			{ name: 'Raspberry Pi', selected: false },
 			{ name: 'Edison Robots', selected: false },
 			{ name: 'LEGO Mindstorm Robots', selected: false },
 			{ name: 'Website Development', selected: false },
