@@ -20,6 +20,11 @@
       .state('error', {
         url: '/error',
         templateUrl: 'error/error.tpl.html'
+      })
+      .state('view', {
+        url: '/view',
+        templateUrl: 'view/view.tpl.html',
+        controller: 'ViewController'
       });
   });
 }(angular));
