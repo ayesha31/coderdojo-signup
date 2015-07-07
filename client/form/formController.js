@@ -1,5 +1,5 @@
 angular.module('coder-dojo-signup')
-.controller('FormController', function($scope, $http) {
+.controller('FormController', function($scope, $http, $state) {
 	'use strict';
 
 	$scope.signup = {
@@ -10,8 +10,10 @@ angular.module('coder-dojo-signup')
 		],
 		activities: [
 			{ name: 'Scratch', selected: false },
-			{ name: 'Unity', selected: false },
-			{ name: 'Edison', selected: false }
+			{ name: 'Edison Robots', selected: false },
+			{ name: 'LEGO Mindstorm Robots', selected: false },
+			{ name: 'Website Development', selected: false },
+			{ name: 'Unity Game Development', selected: false },
 		],
 		dietaryConsiderations: ''
 	};
@@ -39,10 +41,10 @@ angular.module('coder-dojo-signup')
 
 		$http(req)
 			.success(function(data, status, headers, config) {
-				console.log(data);
+				$state.go('accept');
 			})
 			.error(function(data, status, headers, config) {
-				console.log('error');
+				$state.go('error');
 			});
 	};
 });

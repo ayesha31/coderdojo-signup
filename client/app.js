@@ -11,9 +11,15 @@
         url: '/form',
         templateUrl: 'form/form.tpl.html',
         controller: 'FormController'
+      })
+      .state('accept', {
+        url: '/accept',
+        templateUrl: 'accept/accept.tpl.html',
+        controller: 'AcceptController'
+      })
+      .state('error', {
+        url: '/error',
+        templateUrl: 'error/error.tpl.html'
       });
   });
 }(angular));
-
-
-
