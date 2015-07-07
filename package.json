@@ -6,9 +6,7 @@
     "mongodb": "*",
     "mongoose": "*",
     "monk": "^1.0.1",
-    "q": "*"
-  },
-  "devDependencies": {
+    "q": "*",
     "body-parser": "*",
     "gulp": "*",
     "gulp-bower": "*",
