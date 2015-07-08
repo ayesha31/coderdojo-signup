@@ -15,6 +15,7 @@ angular.module('coder-dojo-signup')
 			{ name: 'LEGO Mindstorm Robots', selected: false },
 			{ name: 'Website Development', selected: false },
 			{ name: 'Unity Game Development', selected: false },
+			{ name: 'Other', selected: false }
 		],
 		dietaryConsiderations: ''
 	};
