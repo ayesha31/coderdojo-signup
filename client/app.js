@@ -2,7 +2,7 @@
   'use strict';
   angular.module('coder-dojo-signup', [
     'ngFx',
-    'ui.router'])
+    'ui.router', 'ui.bootstrap'])
   .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/form');
 
