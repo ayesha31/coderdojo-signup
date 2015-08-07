@@ -4,14 +4,14 @@
     'ngFx',
     'ui.router', 'ui.bootstrap'])
   .config(function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/form');
+    $urlRouterProvider.otherwise('/closed');
 
     $stateProvider
-      .state('form', {
-        url: '/form',
-        templateUrl: 'form/form.tpl.html',
-        controller: 'FormController'
-      })
+      // .state('form', {
+      //   url: '/form',
+      //   templateUrl: 'form/form.tpl.html',
+      //   controller: 'FormController'
+      // })
       .state('accept', {
         url: '/accept',
         templateUrl: 'accept/accept.tpl.html',
@@ -20,6 +20,10 @@
       .state('error', {
         url: '/error',
         templateUrl: 'error/error.tpl.html'
+      })
+      .state('closed', {
+        url: '/closed',
+        templateUrl: 'closed/closed.tpl.html'
       })
       .state('view', {
         url: '/view',
