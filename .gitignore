@@ -16,7 +16,6 @@ pids
 # Build files 
 build/
 temp/
-dist/
 
 # Documentation files
 docs/
