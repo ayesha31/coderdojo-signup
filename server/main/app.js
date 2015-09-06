@@ -1,17 +1,18 @@
-"use strict";
-
+/*
+ * Module depenendcies
+ */
 var express = require('express');
-var app = express();
-var routers = {};
-var NoteRouter = express.Router();
 var db = require('monk')(process.env.DB_URL || 'mongodb://localhost/coder-dojo-signup');
-routers.NoteRouter = NoteRouter;
+
+/*
+ * Application server
+ */
+var app = express();
+
 
 require('./config.js')(app, express, routers);
 
 require('../form/ninjaRegistration.js')(app, db);
 require('../view/getNinjaList.js')(app, db);
 
-require('../note/note_routes.js')(NoteRouter);
-
-module.exports = exports = app;
+module.exports = app;
