@@ -1,11 +1,29 @@
 {
   "name": "coder-dojo-signup",
-  "version": "",
+  "version": "0.0.0",
+  "authors": [
+    "Bankwest"
+  ],
+  "description": "",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://stash.rtdomau.local:8443/scm/acs/coder-dojo-rego.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib",
+    "test",
+    "tests"
+  ],
   "dependencies": {
-    "bootstrap-css-only": "*",
-    "angular": "*" ,
-    "ngFx": "*",
-    "angular-ui-router": "*"
+    "angular": "~1.4.4",
+    "bootstrap": "~3.3.5",
+    "components-font-awesome": "~4.4.0",
+    "angular-ui-router": "~0.2.15",
+    "angular-bootstrap": "~0.13.3"
   }
 }
-
