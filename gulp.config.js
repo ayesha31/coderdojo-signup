@@ -16,7 +16,7 @@ module.exports = {
     ],
     cssLibs: [
         'lib/components-font-awesome/css/font-awesome.min.css',
-        'lib/bootstrap/dist/css/bootstrap.min.css'
+        'lib/bootstrap-css-only/css/bootstrap.min.css'
     ],
     fonts: [
         'client/fonts/**/*'
