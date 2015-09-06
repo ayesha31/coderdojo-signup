@@ -1,0 +1,73 @@
+<div class="container">
+	<div class="row">
+		<h1 class="col-sm-12">Coder Dojo @ Bankwest Term 3 Sign Up</h1> 
+	</div>
+	<div class="row">
+		<p>Coder Dojo is a series of free programming classes for kids aged 6-17 held on the Podium level of Bankwest place. It is open to Bankwest and Commonwealth Bank colleagues and friends so feel free to invite anyone else; as long as they have a way of getting into the building.</p>
+		<p>Term 3 will be starting on the 4th of August and will run weekly from 4:30-6:00pm on Tuesdays for 6 weeks.</p>
+		<p><strong>Please note that children 11 years old or younger will need to be accompanied by a guardian.</strong></p>
+		<p>We will be doing a majority of the activities on laptops, the ninjas can bring in their own or we can supply them, just make sure you tick the 'Laptop Required' field.</p>
+	</div>
+	<form ng-submit="registerNinja()">
+		<div class="form-group col-sm-12 col-md-6">
+			<label for="userName" class="control-label">Your Name</label>
+			<input type="text" class="form-control" id="userName" ng-model="signup.name" required>
+		</div>
+		<div class="form-group col-sm-12 col-md-6">
+			<label for="userEmail" class="control-label">Your Email</label>
+			<input type="email" class="form-control" id="userEmail" ng-model="signup.email" required>
+		</div>
+		<h3>Ninja Information</h3>
+		<div class="row">
+			<div class="col-xs-12" ng-repeat="ninja in signup.ninjaInformation">
+				<div class="col-sm-5 col-xs-8">
+					<div class="form-group">
+						<label for="ninjaName" class="control-label">Name</label>
+						<input type="text" class="form-control" id="ninjaName" ng-model="ninja.name" required>
+					</div>
+				</div>
+				<div class="col-sm-2 col-xs-4">
+					<div class="form-group">
+						<label for="ninjaAge" class="control-label">Age</label>
+						<input type="number" class="form-control" id="ninjaAge" min="6" max="17" ng-model="ninja.age" required>
+					</div>
+				</div>
+				<div class="col-sm-3 col-xs-6">
+					<div class="form-group" tooltip="Ninjas can bring their own laptops or we can supply them. If you need a laptop, please select this box.">
+						<label for="ninjaLaptop" class="control-label">Laptop Required</label>
+							<input type="checkbox" class="control-checkbox form-control" id="ninjaLaptop" ng-model="ninja.laptopRequired">
+					</div>
+				</div>
+				<div class="col-sm-2 col-xs-6">
+					<button type="button" class="btn btn-danger btn-remove" ng-click="removeNinja(ninja)">Remove</button>
+				</div>
+			</div>
+			
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<button type="button" ng-click="addNinja()" class="btn btn-success">Add Ninja</button>
+			</div>
+		</div>
+		<h3>Activities</h3>
+		<div class="row">
+			<div class="form-group col-lg-12">
+				<label for="activities" class="control-label">We run a range of activities for the ninjas, what actvities would they be interested in? (Tick all that apply)</label>
+				<div class="checkbox" ng-repeat="activity in signup.activities">
+				  <label>
+				    <input type="checkbox" ng-model="activity.selected" >
+				    {{activity.name}}
+				  </label>
+				</div>
+			</div>
+		</div>
+		<h3>Dietary Considerations</h3>
+		<div class="row">
+			<div class="form-group col-lg-12">
+				<label for="dietaryConsideration" class="control-label">Some food may be supplied as part of Coder Dojo, do your Ninjas have any special dietary requirements?</label>
+				<textarea rows="4" columns="50" id="dietaryConsideration" ng-model="signup.dietaryConsiderations" class="form-control"></textarea>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>
