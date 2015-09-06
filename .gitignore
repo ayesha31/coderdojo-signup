@@ -16,11 +16,13 @@ pids
 # Build files 
 build/
 temp/
-client
+client/
 
 # Documentation files
 docs/
 
 .env
 
+
 .DS_Store
+
