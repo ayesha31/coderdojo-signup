@@ -12,6 +12,14 @@
         $urlRouterProvider.otherwise('/closed');
 
         $stateProvider
+            .state('register', {
+                url: '/register',
+                templateProvider: function ($templateCache) {
+                    return $templateCache.get('app/register/register.html');
+                },
+                controller: 'RegisterController',
+                controllerAs: 'vm'
+            })
             .state('form', {
                 url: '/form',
                 templateProvider: function ($templateCache) {
