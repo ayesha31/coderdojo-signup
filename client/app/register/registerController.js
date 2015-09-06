@@ -24,7 +24,7 @@
             console.log(vm.code);
 
             var req = {
-                method: 'GET',
+                method: 'POST',
                 url: '/api/validateCodes',
                 data: vm.code
             };
