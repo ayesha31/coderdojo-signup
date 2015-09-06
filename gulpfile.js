@@ -203,3 +203,8 @@ gulp.task('build', ['preBuild', 'inject']);
 gulp.task('default', function (cb) {
     runSequence('clean', ['build', 'express', 'reload', 'watch', 'open'], cb)
 });
+
+gulp.task('dist', ['build'], function () {
+    gulp.src(config.dest + '/**/*')
+        .pipe(gulp.dest('dist'));
+});

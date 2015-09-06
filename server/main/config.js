@@ -11,7 +11,7 @@ module.exports = function (app, express) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(middle.cors);
-  app.use(express.static(__dirname + '/build'));
+  app.use(express.static(__dirname + '/dist'));
   app.use(middle.logError);
   app.use(middle.handleError);
 };
