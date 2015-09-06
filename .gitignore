@@ -16,8 +16,10 @@ pids
 # Build files 
 build/
 temp/
+client
 
 # Documentation files
 docs/
 
 .env
+

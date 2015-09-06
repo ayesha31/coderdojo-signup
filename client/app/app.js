@@ -1,1 +1,0 @@
-angular.module('coder-dojo-signup', ['ui.router', 'ui.bootstrap']);
