@@ -29,7 +29,7 @@ angular.module('coder-dojo-signup')
 
 		if(index > -1) {
 			$scope.signup.ninjaInformation.splice(index, 1);
-		};
+		}
 	};
 
 	$scope.registerNinja = function() {

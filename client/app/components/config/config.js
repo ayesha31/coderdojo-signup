@@ -15,33 +15,34 @@
             .state('form', {
                 url: '/form',
                 templateProvider: function ($templateCache) {
-                    return $templateCache.get('app/form/form.tpl.html');
+                    return $templateCache.get('app/form/form.html');
                 },
                 controller: 'FormController'
             })
             .state('accept', {
                 url: '/accept',
                 templateProvider: function ($templateCache) {
-                    return $templateCache.get('app/accept/accept.tpl.html');
+                    return $templateCache.get('app/accept/accept.html');
                 },
-                controller: 'AcceptController'
+                controller: 'AcceptController',
+                controllerAs: 'vm'
             })
             .state('error', {
                 url: '/error',
                 templateProvider: function ($templateCache) {
-                    return $templateCache.get('app/error/error.tpl.html');
+                    return $templateCache.get('app/error/error.html');
                 }
             })
             .state('closed', {
                 url: '/closed',
                 templateProvider: function ($templateCache) {
-                    return $templateCache.get('app/closed/closed.tpl.html');
+                    return $templateCache.get('app/closed/closed.html');
                 }
             })
             .state('view', {
                 url: '/view',
                 templateProvider: function ($templateCache) {
-                    return $templateCache.get('app/view/view.tpl.html');
+                    return $templateCache.get('app/view/view.html');
                 },
                 controller: 'ViewController'
             });
