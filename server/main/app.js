@@ -14,7 +14,10 @@ require('./config.js')(app, express);
 
 require('../form/ninjaRegistration.js')(app, db);
 require('../view/getNinjaList.js')(app, db);
-//require('../codes/setCodes.js')(app,db);
 require('../codes/validateCodes.js')(app, db);
+
+if (!process.env.PROD) {
+    require('../codes/setCodes.js')(app,db);
+}
 
 module.exports = app;
