@@ -22,7 +22,7 @@
 
         if (!vm.auth) {
             console.log('vm.auth not true');
-            $state.go('register');
+            //$state.go('register');
         }
 
         vm.form = {
@@ -48,6 +48,9 @@
         vm.add = add;
         vm.remove = remove;
         vm.register = register;
+
+        vm.minDate = new Date();
+        vm.maxDate = new Date();
 
         function add() {
             var ninja = {
@@ -82,7 +85,9 @@
         }
 
         function register() {
+            alert('Is all the informaiton correct?');
 
+            console.log(vm.form);
         }
 
 
