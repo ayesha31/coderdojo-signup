@@ -26,7 +26,10 @@
             var req = {
                 method: 'POST',
                 url: '/api/validateCodes',
-                data: vm.code
+                header: {
+                    'Content-Type': 'application/json'
+                },
+                data: {'text': vm.code}
             };
 
             $http(req)
@@ -41,8 +44,8 @@
             function error(response) {
                 console.log(response);
 
-                if (status === 401) {
-                    alert('Sorry, that code is invalid');
+                if (response.status === 401) {
+                    alert('Sorry, that code is invalid, please check that you typed it correctly');
                 }
                 else {
                     $state.go('error');

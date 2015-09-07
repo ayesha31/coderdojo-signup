@@ -10,7 +10,7 @@ module.exports = function (app, express) {
   app.set('base url', process.env.URL || 'http://localhost');
 
   app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({extended: true}));
+  app.use(bodyParser.urlencoded({extended: false}));
   app.use(middle.cors);
   app.use(express.static('dist'));
   app.use(middle.logError);
