@@ -25,7 +25,8 @@
                 templateProvider: function ($templateCache) {
                     return $templateCache.get('app/form/form.html');
                 },
-                controller: 'FormController'
+                controller: 'FormController',
+                controllerAs: 'vm'
             })
             .state('accept', {
                 url: '/accept',
