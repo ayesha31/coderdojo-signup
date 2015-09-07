@@ -29,7 +29,7 @@
                 header: {
                     'Content-Type': 'application/json'
                 },
-                data: {'text': vm.code}
+                data: {text: vm.code}
             };
 
             $http(req)
@@ -37,7 +37,13 @@
 
             function success(response) {
                 console.log(response);
-                $state.go('form', {auth: true});
+
+                var data = {code: response.data.code, spotsLeft: response.data.spotsLeft, auth: true};
+
+                $rootScope.$broadcast('Register.CodeValid', data);
+
+                console.log('params', data);
+                $state.go('form');
             }
 
             function error(error) {
