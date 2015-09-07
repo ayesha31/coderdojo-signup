@@ -1,10 +1,11 @@
 module.exports = function (app, db) {
-    app.post('/api/setCodes', function(req, res) {
+    app.delete('/api/deleteCodes', function(req, res) {
         var codes = db.get('codes');
 
-        var testCode = { text: 'test', limit: 10, current: 9};
+        var testCode1 = {text: 'test', limit: 10, current: 10};
+        var testCode2 = {text: 'test', limit: 1000, current: 0};
 
-        codes.insert(testCode)
+        codes.remove(testCode1)
             .success(function(doc) {
                 console.log(doc);
 

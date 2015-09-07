@@ -1,19 +1,30 @@
-var mongodb = require('mongodb').MongoClient;
+module.exports = function (app, db) {
+    app.post('/api/registerNinja', function (req, res) {
+        var registration = db.get('registration');
+        var codes = db.get('codes');
 
-module.exports = function(app, db) {
-	app.post('/api/registerNinja', function(req, res) {
-		var registration = db.get('registration');
-		
-		registration.insert(req.body)
-			.success(function(doc) {
-				console.log(doc);
+        registration.insert(req.body.form)
+            .success(function (doc) {
+                console.log(doc);
+                console.log('update code');
 
-				res.status(200).end();
-			})
-			.error(function(err) {
-				console.log(err);
+                // Update code count
+                codes.findAndModify({query: {text: req.body.code}, update: {$inc: {current: 1}}}, function (err, docs) {
+                    console.log('err', err);
+                    console.log('doc', docs);
 
-				res.status(503).end();
-			});
-	});
+                    if (err) {
+                        res.status(500).send({error: err});
+                    }
+                    else {
+                        res.status(200).send({msg: 'Accepted'});
+                    }
+                });
+            })
+            .error(function (err) {
+                console.log(err);
+
+                res.status(503).end();
+            });
+    });
 };

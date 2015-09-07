@@ -37,15 +37,17 @@
 
             function success(response) {
                 console.log(response);
-
-                $state.go('form');
+                $state.go('form', {auth: true});
             }
 
-            function error(response) {
-                console.log(response);
+            function error(error) {
+                console.log(error);
 
-                if (response.status === 401) {
+                if (error.status === 401) {
                     alert('Sorry, that code is invalid, please check that you typed it correctly');
+                }
+                else if (error.status === 403) {
+                    $state.go('closed');
                 }
                 else {
                     $state.go('error');

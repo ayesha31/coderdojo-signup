@@ -18,6 +18,7 @@ require('../codes/validateCodes.js')(app, db);
 
 if (!process.env.PROD) {
     require('../codes/setCodes.js')(app,db);
+    require('../codes/deleteCodes.js')(app,db);
 }
 
 module.exports = app;
