@@ -1,6 +1,6 @@
 (function() {
     angular
-        .module('coder-dojo-signup')
+        .module('coderdojo-signup')
         .controller('AcceptController', AcceptController);
 
     AcceptController.$inject = [

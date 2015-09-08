@@ -1,5 +1,5 @@
 // TODO: update this
-angular.module('coder-dojo-signup')
+angular.module('coderdojo-signup')
 .controller('ViewController', function($scope, $http, $state) {
 	'use strict';
 	$scope.ninjaCount = 0;

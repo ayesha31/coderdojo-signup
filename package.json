@@ -1,7 +1,7 @@
 {
   "name": "coder-dojo-signup",
   "version": "0.0.0",
-  "description": "Coder Dojo Registration App",
+  "description": "CoderDojo Registration App",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

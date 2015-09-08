@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module('coder-dojo-signup')
+        .module('coderdojo-signup')
         .config(config);
 
     config.$inject = [

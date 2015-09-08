@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    appName: 'coder-dojo-signup',
+    appName: 'coderdojo-signup',
     dest: 'build',
     js: [
         '!client/app/index.js',
@@ -12,7 +12,7 @@ module.exports = {
         'client/app/**/*.html'
     ],
     less: [
-        'client/styles/coder-dojo-signup.less'
+        'client/styles/coderdojo-signup.less'
     ],
     cssLibs: [
         'lib/components-font-awesome/css/font-awesome.min.css',

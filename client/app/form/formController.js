@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module('coder-dojo-signup')
+        .module('coderdojo-signup')
         .controller('FormController', FormController);
 
     FormController.$inject = [
@@ -63,7 +63,7 @@
 
             if (vm.form.ninjas.length >= vm.spotsLeft) {
                 alert('Unfortunately there are only ' + vm.spotsLeft + ' spots left for this event. Therefore, you cannot register more than ' + vm.spotsLeft +
-                    ' ninjas at this time. Please contact your local Coder Dojo champion if you have any questions');
+                    ' ninjas at this time. Please contact your local CoderDojo champion if you have any questions');
             }
             else {
                 vm.form.ninjas.push(ninja);
