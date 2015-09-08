@@ -1,1 +1,1 @@
-angular.module('coder-dojo-signup', ['ui.router', 'ui.bootstrap']);
+angular.module('coder-dojo-signup', ['ui.router', 'ui.bootstrap', 'ui.bootstrap.tpls']);

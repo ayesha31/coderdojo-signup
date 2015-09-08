@@ -7,11 +7,13 @@
             <h4>Info:</h4>
 
             <p>The first Girls only Coder Dojo Event at Bankwest, consisting of only female mentors and female ninjas, will be held on Monday 5 October, 2015
-                from 10:00am to 3:00pm at Bankwest Place located in the Perth CBD. During that time period the ninjas will get to choose from a number of different
+                from 10:00am to 3:00pm at Bankwest Place located in the Perth CBD. During that time period the ninjas will get to choose from a number of
+                different
                 stations where they can build and program robots, create websites or animate scenes and create games. At the end of the event we will
                 be holding a showcase, where the ninjas get to show off the amazing things they created. The event will include morning tea and afternoon snacks
                 but please be advised that all ninjas and parents or guardians who may be accompanying them are expected to bring their own lunch.
             </p>
+
             <p>
                 We will be providing laptops but if a ninja has a laptop they would like to use, they are welcome to bring it. However, please note that we may
                 not have a way for the ninja to participate to show off their work in the showcase if they are using their own laptop. They may want to bring a
@@ -20,32 +22,128 @@
         </div>
     </div>
     <br/>
+
     <div class="row">
         <div class="col-md-12">
-            <h4>Registration:</h4>
+            <h4>Ninja Registration:</h4>
         </div>
         <form class="col-md-12" role="form" ng-submit="vm.register()">
             <div ng-repeat="ninja in vm.form.ninjas" class="form-inline">
-                <div  class="form-group">
+                <div class="form-group">
                     <label for="ninjaFirstName" class="sr-only">Ninja First Name</label>
-                    <input type="text" class="form-control" id="ninjaFirstName" placeholder="Ninja First Name" ng-model="ninja.firstName" required>
-
+                    <input type="text" class="form-control" id="ninjaFirstName" placeholder="Ninja First Name" ng-model="ninja.firstName" ng-required="true"
+                           required/>
                 </div>
                 <div class="form-group">
                     <label for="ninjaLastName" class="sr-only">Ninja Last Name</label>
-                    <input type="text" class="form-control" id="ninjaLastName" placeholder="Ninja Last Name" ng-model="ninja.lastName" required>
+                    <input type="text" class="form-control" id="ninjaLastName" placeholder="Ninja Last Name" ng-model="ninja.lastName" ng-required="true"
+                           required/>
                 </div>
                 <div class="form-group">
-                    <!--<div class="input-group" ng-init="status.opened=false">-->
-                        <!--<input type="date" class="form-control" datepicker-popup ng-model="ninja.birthday" is-open="status.opened" min-date="minDate"-->
-                               <!--max-date="maxDate" ng-required="true" close-text="Close" />-->
-                    <!--</div>-->
+                    <label for="ninjaBday" class="control-label">Ninja Birthday*</label>
+
+                    <div class="input-group" ng-init="opened=false">
+                        <input type="date" class="form-control" id="ninjaBday" datepicker-popup ng-model="ninja.birthday" is-open="opened" min-date="vm.minDate"
+                               max-date="vm.maxDate" ng-required="true" close-text="Close" min="1998-10-05" max="2008-10-05" required/>
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar fa-fw" ng-click="opened = !opened"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="vm.form.ninjas.length > 1">
+                    <i class="fa fa-trash-o fa-lg" ng-click="vm.remove(ninja)" tooltip="Remove Ninja" tooltip-placement="right"></i>
+                </div>
+
+                <!--TODO: take inline styles out and put on stylesheet-->
+                <div class="form-group" style="margin-top: 15px">
+                    <p class="control-label">We run a range of activities for the ninjas, what activities would they be interested in? (Tick all that apply)</p>
+
+                    <div class="checkbox" ng-repeat="activity in ninja.activities">
+                        <label for="activities" style="padding-right: 15px; padding-top:15px">
+                            <input type="checkbox" id="activities" ng-model="activity.selected"/>
+                            {{activity.name}}
+                        </label>
+                    </div>
                 </div>
             </div>
-            <!--<div class="form-group">-->
 
-            <!--</div>-->
+            <div class="form-group">
+                <button type="button" class="btn btn-success btn-sm" ng-click="vm.add()">Add Another Ninja</button>
+            </div>
+            <div class="form-group">
+                <p>* Note that this event is only for females aged 7 to 17 and all ninjas under the age of 12 must be accompanied by an adult at all times</p>
+            </div>
+            <div ng-show="!vm.isBw" class="form-inline">
+                <div class="form-group">
+                    <label for="dojo" class="control-label">What Dojo Do you Regularly Attend?</label>
+                    <input type="text" class="form-control" id="dojo" placeholder="Coder Dojo Name" ng-model="vm.form.dojo" ng-required="true" required/>
+                </div>
+            </div>
+            <br/>
 
+            <h4>Parent/Guardian Information:</h4>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="parentFirstName" class="sr-only">Parent/Guardian First Name</label>
+                    <input type="text" class="form-control" id="parentFirstName" placeholder="Parent First Name" ng-model="vm.form.parent.firstName"
+                           ng-required="true" required/>
+                </div>
+                <div class="form-group">
+                    <label for="parentLastName" class="sr-only">Parent/Guardian Last Name</label>
+                    <input type="text" class="form-control" id="parentLastName" placeholder="Parent Last Name" ng-model="vm.form.parent.lastName"
+                           ng-required="true" required/>
+                </div>
+                <div class="form-group">
+                    <label for="parentEmail" class="sr-only">Parent Email</label>
+                    <input type="email" class="form-control" id="parentEmail" placeholder="Parent Email" ng-model="vm.form.parent.email"
+                           ng-required="true" required/>
+                </div>
+                <div class="form-group">
+                    <label for="parentPhone" class="sr-only">Parent Phone Number</label>
+                    <input type="text" class="form-control" id="parentPhone" placeholder="Parent Phone Number" ng-model="vm.form.parent.phone"
+                           ng-required="true" required/>
+                </div>
+            </div>
+            <div ng-show="vm.isBw">
+                <h4>Bankwest Contact Name:</h4>
+                <div class="form-inline">
+                    <div class="form-group">
+                        <label for="bwFirstName" class="sr-only">Bankwest Contact First Name</label>
+                        <input type="text" class="form-control" id="bwFirstName" placeholder="Contact First Name" ng-model="vm.form.bwContact.firstName"
+                               ng-required="true" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="bwLastName" class="sr-only">Bankwest Contact Last Name</label>
+                        <input type="text" class="form-control" id="bwLastName" placeholder="Contact Last Name" ng-model="vm.form.bwContact.lastName"
+                               ng-required="true" required/>
+                    </div>
+                </div>
+            </div>
+            <br/>
+
+            <h4>Photo Release Waiver:</h4>
+            <p>
+                By participating in this Coder Dojo Girls Event, you understand that photos/video may be taken of your child and/or yourself by Bankwest
+                and/or Coder Dojo WA and that these photos/videos may be used in social or other media to promote Bankwest's support of Coder Dojo and the Coder
+                Dojo movement. By attending, you agree to the use of your and/or your child's image for the purposes of promoting Coder Dojo/Bankwest.
+            </p>
+            <div class="checkbox">
+                <label for="photoWaiver">
+                    <input type="checkbox" id="photoWaiver" ng-model="vm.form.photoPermission" required/>By checking this box, you understand and give
+                    permission for CoderDojo WA and Bankwest to use photomedia of my child at the Dojo event to promote the Coder Dojo movement.
+                </label>
+            </div>
+            <br/>
+
+            <div class="form-group">
+                <label for="comments" class="control-label">Any Additional Comments?</label>
+                <textarea rows="2" columns="50" id="comments" ng-model="vm.form.comments" class="form-control"></textarea>
+            </div>
+
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-bw" ng-click="vm.register()">Submit Registration</button>
+            </div>
         </form>
     </div>
 </div>

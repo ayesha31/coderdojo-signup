@@ -25,36 +25,45 @@
             //$state.go('register');
         }
 
+        var ninja = {
+            firstName: '', lastName: '', birthday: new Date(), under12: false, activities: [
+                { name: 'Scratch', selected: false },
+                { name: 'Edison Robots', selected: false },
+                { name: 'LEGO Mindstorm Robots', selected: false },
+                { name: 'Website Development', selected: false },
+                { name: 'Other', selected: false }
+            ]
+        };
+
+        vm.minDate = new Date(1998, 9, 5);
+        vm.maxDate = new Date(2008, 9, 5);
+
         vm.form = {
-            ninjas: [
-                {
-                    firstName: '', lastName: '', birthday: '', under12: false,
-                    activities: [
-                        { name: 'Scratch', selected: false },
-                        { name: 'Edison Robots', selected: false },
-                        { name: 'LEGO Mindstorm Robots', selected: false },
-                        { name: 'Website Development', selected: false },
-                        { name: 'Other', selected: false }
-                    ]
-                }
-            ],
+            ninjas: [{
+                firstName: '', lastName: '', birthday: new Date(2008, 9, 5), under12: false, activities: [
+                    { name: 'Scratch', selected: false },
+                    { name: 'Edison Robots', selected: false },
+                    { name: 'LEGO Mindstorm Robots', selected: false },
+                    { name: 'Website Development', selected: false },
+                    { name: 'Other', selected: false }
+                ]
+            }],
+            dojo: vm.isBw ? 'Bankwest' : '',
             bwContact: { firstName: '', lastName: ''},
             parent: {
                 firstName: '', lastName: '', email: '', phone: ''
             },
-            photoPermission: false
+            photoPermission: false,
+            comments: ''
         };
 
         vm.add = add;
         vm.remove = remove;
         vm.register = register;
 
-        vm.minDate = new Date();
-        vm.maxDate = new Date();
-
         function add() {
             var ninja = {
-                firstName: '', lastName: '', birthday: '', under12: false, activities: [
+                firstName: '', lastName: '', birthday: new Date(2008, 9, 5), under12: false, activities: [
                     { name: 'Scratch', selected: false },
                     { name: 'Edison Robots', selected: false },
                     { name: 'LEGO Mindstorm Robots', selected: false },
@@ -85,7 +94,7 @@
         }
 
         function register() {
-            alert('Is all the informaiton correct?');
+            alert('Is all the information correct?');
 
             console.log(vm.form);
         }
