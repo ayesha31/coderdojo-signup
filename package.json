@@ -1,5 +1,5 @@
 {
-  "name": "coder-dojo-signup",
+  "name": "coderdojo-signup",
   "version": "0.0.0",
   "description": "CoderDojo Registration App",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/melissaettinger/coder-dojo-signup.git"
+    "url": "git+https://github.com/melissaettinger/coderdojo-signup.git"
   },
   "author": "Melissa Ettinger",
   "private": true,
@@ -72,8 +72,8 @@
     "monk": "^1.0.1"
   },
   "bugs": {
-    "url": "https://github.com/melissaettinger/coder-dojo-signup/issues"
+    "url": "https://github.com/melissaettinger/coderdojo-signup/issues"
   },
-  "homepage": "https://github.com/melissaettinger/coder-dojo-signup#readme",
+  "homepage": "https://github.com/melissaettinger/coderdojo-signup#readme",
   "license": "ISC"
 }

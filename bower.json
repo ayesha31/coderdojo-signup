@@ -1,5 +1,5 @@
 {
-  "name": "coder-dojo-signup",
+  "name": "coderdojo-signup",
   "version": "0.0.0",
   "authors": [
     "Bankwest"
@@ -9,7 +9,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://stash.rtdomau.local:8443/scm/acs/coder-dojo-rego.git"
+    "url": "https://github.com/melissaettinger/coderdojo-signup.git"
   },
   "ignore": [
     "**/.*",

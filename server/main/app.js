@@ -2,7 +2,7 @@
  * Module depenendcies
  */
 var express = require('express');
-var db = require('monk')(process.env.DB_URL || 'mongodb://localhost/coder-dojo-signup');
+var db = require('monk')(process.env.DB_URL || 'mongodb://localhost/coderdojo-signup');
 
 /*
  * Application server
