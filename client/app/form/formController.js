@@ -82,7 +82,7 @@
             var is12 = new Date (2003, 9, 5);
             var diff = Math.abs(is12 - ninja.birthday);
 
-            return diff > 0;
+            return diff < 0;
         }
 
         function register() {

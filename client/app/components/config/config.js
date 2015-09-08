@@ -9,7 +9,7 @@
     ];
 
     function config($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/closed');
+        $urlRouterProvider.otherwise('/register');
 
         $stateProvider
             .state('register', {
