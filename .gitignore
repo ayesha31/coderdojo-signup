@@ -23,3 +23,5 @@ docs/
 .env
 
 .DS_Store
+
+client/
