@@ -5,12 +5,10 @@
 
     RegisterController.$inject = [
         '$http',
-        '$scope',
-        '$rootScope',
         '$state'
     ];
 
-    function RegisterController($http, $scope, $rootScope, $state) {
+    function RegisterController($http, $state) {
         var vm = this;
 
         vm.code = '';
@@ -39,11 +37,7 @@
                 console.log(response);
 
                 var data = {code: response.data.code, spotsLeft: response.data.spotsLeft, auth: true};
-
-                $rootScope.$broadcast('Register.CodeValid', data);
-
-                console.log('params', data);
-                $state.go('form');
+                $state.go('form', data);
             }
 
             function error(error) {

@@ -22,6 +22,11 @@
             })
             .state('form', {
                 url: '/form',
+                params: {
+                    code: '',
+                    spotsLeft: 0,
+                    auth: false
+                },
                 templateProvider: function ($templateCache) {
                     return $templateCache.get('app/form/form.html');
                 },

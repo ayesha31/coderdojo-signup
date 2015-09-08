@@ -1,3 +1,4 @@
+// TODO: update this
 angular.module('coder-dojo-signup')
 .controller('ViewController', function($scope, $http, $state) {
 	'use strict';

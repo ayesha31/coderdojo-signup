@@ -5,49 +5,37 @@
 
     FormController.$inject = [
         '$http',
-        '$scope',
-        '$rootScope',
         '$state'
     ];
 
-    function FormController($http, $scope, $rootScope, $state) {
+    function FormController($http, $state) {
         var vm = this;
 
-        $scope.$on('Register.CodeValid', function (event, data) {
-            vm.code = data.code;
-            vm.isBw = data.code.indexOf('bw') >= 0;
-            vm.auth = data.auth;
-            vm.spotsLeft = data.spotsLeft;
-        });
+        vm.auth = $state.params.auth;
+        vm.code = $state.params.code;
+        vm.isBw = $state.params.code.indexOf('bw') >= 0;
+        vm.spotsLeft = $state.params.spotsLeft;
 
         if (!vm.auth) {
             console.log('vm.auth not true');
-            //$state.go('register');
+            $state.go('register');
         }
-
-        var ninja = {
-            firstName: '', lastName: '', birthday: new Date(), under12: false, activities: [
-                { name: 'Scratch', selected: false },
-                { name: 'Edison Robots', selected: false },
-                { name: 'LEGO Mindstorm Robots', selected: false },
-                { name: 'Website Development', selected: false },
-                { name: 'Other', selected: false }
-            ]
-        };
 
         vm.minDate = new Date(1998, 9, 5);
         vm.maxDate = new Date(2008, 9, 5);
 
         vm.form = {
-            ninjas: [{
-                firstName: '', lastName: '', birthday: new Date(2008, 9, 5), under12: false, activities: [
+            ninjas: [
+                {
+                    firstName: '', lastName: '', birthday: new Date(2008, 9, 5), under12: false, activities: [
                     { name: 'Scratch', selected: false },
                     { name: 'Edison Robots', selected: false },
                     { name: 'LEGO Mindstorm Robots', selected: false },
                     { name: 'Website Development', selected: false },
                     { name: 'Other', selected: false }
                 ]
-            }],
+                }
+            ],
             dojo: vm.isBw ? 'Bankwest' : '',
             bwContact: { firstName: '', lastName: ''},
             parent: {
@@ -62,6 +50,7 @@
         vm.register = register;
 
         function add() {
+            console.log('Spots', vm.spotsLeft);
             var ninja = {
                 firstName: '', lastName: '', birthday: new Date(2008, 9, 5), under12: false, activities: [
                     { name: 'Scratch', selected: false },
@@ -73,7 +62,7 @@
             };
 
             if (vm.form.ninjas.length >= vm.spotsLeft) {
-                alert('Unfortunately there are only ' + vm.spotsLeft + 'spots left for this event. Therefore, you cannot register more than ' + vm.spotsLeft +
+                alert('Unfortunately there are only ' + vm.spotsLeft + ' spots left for this event. Therefore, you cannot register more than ' + vm.spotsLeft +
                     ' ninjas at this time. Please contact your local Coder Dojo champion if you have any questions');
             }
             else {
@@ -90,76 +79,42 @@
         }
 
         function calcUnder12(ninja) {
-            return true;
+            var is12 = new Date (2003, 9, 5);
+            var diff = Math.abs(is12 - ninja.birthday);
+
+            return diff > 0;
         }
 
         function register() {
-            alert('Is all the information correct?');
+            if (confirm('Is all the information correct? You will not be able to go back and edit it.')) {
+                console.log(vm.form);
 
-            console.log(vm.form);
+                for(var i = 0; i < vm.form.ninjas.length; i++) {
+                    vm.form.ninjas[i].under12 = calcUnder12(vm.form.ninjas[i]);
+                }
+
+                var req = {
+                    method: 'POST',
+                    url: '/api/registerNinja',
+                    header: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: {form: vm.form, code: vm.code}
+                };
+
+                $http(req)
+                    .then(success, error);
+
+                function success(response) {
+                    console.log('submit form success', response);
+                    $state.go('accept');
+                }
+
+                function error(err) {
+                    console.log('submit form err', err);
+                    $state.go('error');
+                }
+            }
         }
-
-
     }
 })();
-
-//angular.module('coder-dojo-signup')
-//    .controller('FormController', function ($scope, $http, $state) {
-//        'use strict';
-//
-//        $scope.signup = {
-//            name: '',
-//            email: '',
-//            ninjaInformation: [
-//                { name: '', age: '', laptopRequired: false }
-//            ],
-//            activities: [
-//                { name: 'Scratch', selected: false },
-//                { name: 'Raspberry Pi', selected: false },
-//                { name: 'Edison Robots', selected: false },
-//                { name: 'LEGO Mindstorm Robots', selected: false },
-//                { name: 'Website Development', selected: false },
-//                { name: 'Unity Game Development', selected: false },
-//                { name: 'Other', selected: false }
-//            ],
-//            dietaryConsiderations: ''
-//        };
-//
-//        $scope.addNinja = function () {
-//            $scope.signup.ninjaInformation.push({name: '', age: '', laptopRequired: false });
-//        };
-//
-//        $scope.removeNinja = function (ninja) {
-//            var index = $scope.signup.ninjaInformation.indexOf(ninja);
-//
-//            if (index > -1) {
-//                $scope.signup.ninjaInformation.splice(index, 1);
-//            }
-//        };
-//
-//        $scope.registerNinja = function () {
-//            console.log('registering');
-//
-//            var req = {
-//                method: 'POST',
-//                url: '/api/registerNinja',
-//                header: {
-//                    'Content-Type': 'application/json'
-//                },
-//                data: {form: $scope.signup, code: 'test'} // TODO: update with code they are registering with
-//            };
-//
-//            $http(req)
-//                .then(success, error);
-//
-//            function success(response) {
-//                console.log('submit form success', response);
-//                $state.go('accept');
-//            }
-//
-//            function error(err) {
-//                console.log('submit form err', err);
-//                $state.go('error');
-//            }
-//        };
-//    });
