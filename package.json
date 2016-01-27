@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "preinstall": "npm install -g bower gulp browserify",
+    "postinstall": "bower install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

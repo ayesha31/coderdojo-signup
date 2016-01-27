@@ -11,15 +11,7 @@
     function FormController($http, $state) {
         var vm = this;
 
-        vm.auth = $state.params.auth;
-        vm.code = $state.params.code;
-        vm.isBw = $state.params.code.indexOf('bw') >= 0;
         vm.spotsLeft = $state.params.spotsLeft;
-
-        if (!vm.auth) {
-            console.log('vm.auth not true');
-            $state.go('register');
-        }
 
         vm.minDate = new Date(1998, 9, 5);
         vm.maxDate = new Date(2008, 9, 5);
@@ -36,7 +28,6 @@
                 ]
                 }
             ],
-            dojo: vm.isBw ? 'Bankwest' : '',
             bwContact: { firstName: '', lastName: ''},
             parent: {
                 firstName: '', lastName: '', email: '', phone: ''

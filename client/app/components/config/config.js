@@ -9,7 +9,7 @@
     ];
 
     function config($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/register');
+        $urlRouterProvider.otherwise('/form');
 
         $stateProvider
             .state('register', {
@@ -24,7 +24,7 @@
                 url: '/form',
                 params: {
                     code: '',
-                    spotsLeft: 0,
+                    spotsLeft: 30,
                     auth: false
                 },
                 templateProvider: function ($templateCache) {
