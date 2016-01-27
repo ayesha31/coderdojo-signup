@@ -1,17 +1,24 @@
-"use strict";
-
+/*
+ * Module depenendcies
+ */
 var express = require('express');
-var app = express();
-var routers = {};
-var NoteRouter = express.Router();
-var db = require('monk')(process.env.DB_URL || 'mongodb://localhost/coder-dojo-signup');
-routers.NoteRouter = NoteRouter;
+var db = require('monk')(process.env.DB_URL || 'mongodb://localhost/coderdojo-signup');
 
-require('./config.js')(app, express, routers);
+/*
+ * Application server
+ */
+var app = express();
+
+
+require('./config.js')(app, express);
 
 require('../form/ninjaRegistration.js')(app, db);
 require('../view/getNinjaList.js')(app, db);
+require('../codes/validateCodes.js')(app, db);
 
-require('../note/note_routes.js')(NoteRouter);
+if (!process.env.PROD) {
+    require('../codes/setCodes.js')(app,db);
+    require('../codes/deleteCodes.js')(app,db);
+}
 
-module.exports = exports = app;
+module.exports = app;

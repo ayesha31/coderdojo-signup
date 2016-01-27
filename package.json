@@ -1,26 +1,80 @@
 {
-  "name": "package",
+  "name": "coderdojo-signup",
   "version": "0.0.0",
+  "description": "CoderDojo Registration App",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "npm install -g bower gulp browserify",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melissaettinger/coderdojo-signup.git"
+  },
+  "author": "Melissa Ettinger",
+  "private": true,
+  "browser": {
+    "angular": "./lib/angular/angular.min.js",
+    "ui.router": "./lib/angular-ui-router/release/angular-ui-router.min.js",
+    "ui.bootstrap": "./lib/angular-bootstrap/ui-bootstrap.min.js",
+    "ui.bootstrap.tpls":"./lib/angular-bootstrap/ui-bootstrap-tpls.min.js"
+  },
+  "browserify-shim": {
+    "angular": "angular",
+    "ui.router": {
+      "exports": "angular.module('ui.router')"
+    },
+    "ui.bootstrap": {
+      "exports": "angular.module('ui.bootstrap')"
+    },
+    "ui.bootstrap.tpls": {
+        "exports": "angular.module('ui.bootstrap.tpls')"
+    }
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "devDependencies": {
+    "browserify": "^11.0.1",
+    "browserify-css": "^0.6.1",
+    "browserify-shim": "^3.8.10",
+    "del": "^1.2.1",
+    "express": "^4.13.3",
+    "fs-extra": "^0.23.1",
+    "gulp": "~3.9.0",
+    "gulp-angular-templatecache": "^1.7.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-eslint": "~1.0.0",
+    "gulp-inject": "^1.5.0",
+    "gulp-less": "^3.0.3",
+    "gulp-livereload": "^3.8.0",
+    "gulp-load-plugins": "^0.10.0",
+    "gulp-minify-html": "^1.0.4",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-open": "^1.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.6",
+    "path": "^0.11.14",
+    "run-sequence": "^1.1.2",
+    "stream-series": "^0.1.1",
+    "tiny-lr": "^0.1.6",
+    "vinyl-source-stream": "^1.1.0"
+  },
   "dependencies": {
-    "express": "*",
-    "mongodb": "*",
-    "mongoose": "*",
-    "monk": "^1.0.1",
-    "q": "*",
-    "body-parser": "*",
-    "gulp": "*",
-    "gulp-bower": "*",
-    "gulp-concat": "*",
-    "gulp-jshint": "*",
-    "gulp-less": "*",
-    "gulp-livereload": "*",
-    "gulp-nodemon": "*",
-    "gulp-notify": "*",
-    "gulp-plumber": "*",
-    "gulp-task-listing": "*",
-    "gulp-uglify": "*",
-    "jshint-stylish": "*",
-    "morgan": "*",
-    "tiny-lr": "*"
-  }
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3",
+    "lodash": "^3.10.1",
+    "mongodb": "^2.0.42",
+    "monk": "^1.0.1"
+  },
+  "bugs": {
+    "url": "https://github.com/melissaettinger/coderdojo-signup/issues"
+  },
+  "homepage": "https://github.com/melissaettinger/coderdojo-signup#readme",
+  "license": "ISC"
 }

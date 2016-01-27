@@ -1,4 +1,25 @@
+# Intellij
+.idea/
+
+# Dependency directories
 node_modules/
-_DS_Store
-DS_Store
-bower_components/
+lib/
+
+# Grunt intermediate storage
+.grunt
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Build files 
+build/
+temp/
+
+# Documentation files
+docs/
+
+.env
+
+.DS_Store
