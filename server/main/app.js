@@ -2,13 +2,14 @@
  * Module depenendcies
  */
 var express = require('express');
-var db = require('monk')(process.env.DB_URL || 'mongodb://localhost/coderdojo-signup');
+var db = require('mongoose');
+
+db.connect(process.env.DB_URL || 'mongodb://localhost/coderdojo-signup');
 
 /*
  * Application server
  */
 var app = express();
-
 
 require('./config.js')(app, express);
 

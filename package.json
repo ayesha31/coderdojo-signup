@@ -70,8 +70,8 @@
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
     "lodash": "^3.10.1",
-    "mongodb": "1.4.x",
-    "monk": "^1.0.1"
+    "mongodb": "^2.1.4",
+    "mongoose": "^4.3.7"
   },
   "bugs": {
     "url": "https://github.com/melissaettinger/coderdojo-signup/issues"
