@@ -18,7 +18,7 @@
     "angular": "./lib/angular/angular.min.js",
     "ui.router": "./lib/angular-ui-router/release/angular-ui-router.min.js",
     "ui.bootstrap": "./lib/angular-bootstrap/ui-bootstrap.min.js",
-    "ui.bootstrap.tpls":"./lib/angular-bootstrap/ui-bootstrap-tpls.min.js"
+    "ui.bootstrap.tpls": "./lib/angular-bootstrap/ui-bootstrap-tpls.min.js"
   },
   "browserify-shim": {
     "angular": "angular",
@@ -29,7 +29,7 @@
       "exports": "angular.module('ui.bootstrap')"
     },
     "ui.bootstrap.tpls": {
-        "exports": "angular.module('ui.bootstrap.tpls')"
+      "exports": "angular.module('ui.bootstrap.tpls')"
     }
   },
   "browserify": {
