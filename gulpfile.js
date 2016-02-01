@@ -15,6 +15,7 @@ var series = require('stream-series');
 var client = require('tiny-lr')();
 var express = require('express');
 var runSequence = require('run-sequence');
+var server = require('./server/main/app.js');
 
 
 gulp.task('clean', function (cb) {
@@ -165,11 +166,12 @@ gulp.task('inject', ['preBuild'], function () {
 });
 
 gulp.task('express', ['build', 'inject'], function () {
-    var app = express();
-    app.use(express.static(config.dest));
-    app.listen(config.ports.app, function () {
-        $.util.log($.util.colors.magenta('Listening on', config.ports.app));
-    });
+  var port = server.get('port');
+
+  server.use(express.static(config.dest));
+  server.listen(port, function () {
+    $.util.log($.util.colors.magenta('Listening on ' + server.get('base url') + ':' + port));
+  });
 });
 
 gulp.task('reload', ['build', 'express'], function () {

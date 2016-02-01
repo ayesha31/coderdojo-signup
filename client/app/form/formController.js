@@ -40,6 +40,23 @@
         vm.remove = remove;
         vm.register = register;
 
+        initialise();
+
+        function initialise() {
+          $http
+            .get('/api/registerNinja')
+            .then(success, error);
+
+          function success(response) {
+              console.log('submit form success', response);
+              vm.spotsLeft = response.number;
+          }
+
+          function error(err) {
+              console.log('get number of ninjas err', err);
+          }
+        }
+
         function add() {
             console.log('Spots', vm.spotsLeft);
             var ninja = {

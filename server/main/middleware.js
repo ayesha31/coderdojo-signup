@@ -12,7 +12,6 @@ module.exports = {
         }
         next();
     },
-
     handleError: function (err, req, res, next) {
         if (err) {
             res.send(err, 500);

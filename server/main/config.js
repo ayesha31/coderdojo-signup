@@ -15,4 +15,6 @@ module.exports = function (app, express) {
   app.use(express.static('dist'));
   app.use(middle.logError);
   app.use(middle.handleError);
+
+  app.maximumNumberOfNinjas = 30;
 };

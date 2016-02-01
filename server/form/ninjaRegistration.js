@@ -1,30 +1,31 @@
+
+
 module.exports = function (app, db) {
-    app.post('/api/registerNinja', function (req, res) {
-        var registration = db.get('registration');
-        var codes = db.get('codes');
+  app.get('/api/registerNinja', function(req, res) {
+    var registration = db.get('registration');
 
-        registration.insert(req.body.form)
-            .success(function (doc) {
-                console.log(doc);
-                console.log('update code');
+    registration.find({}, {}, function(err, docs) {
+      if(docs) {
+        res.status(200).send({number: app.maximumNumberOfNinjas - docs.length});
+      } else if(err) {
+        res.status(503).end();
+      }
+    });
+  });
 
-                // Update code count
-                codes.findAndModify({query: {text: req.body.code}, update: {$inc: {current: 1}}}, function (err, docs) {
-                    console.log('err', err);
-                    console.log('doc', docs);
+  app.post('/api/registerNinja', function (req, res) {
+    var registration = db.get('registration');
 
-                    if (err) {
-                        res.status(500).send({error: err});
-                    }
-                    else {
-                        res.status(200).send({msg: 'Accepted'});
-                    }
-                });
-            })
-            .error(function (err) {
-                console.log(err);
+    registration.insert(req.body.form)
+        .success(function (doc) {
+          console.log(doc);
 
-                res.status(503).end();
-            });
+          res.status(200).send({msg: 'Accepted'});
+        })
+        .error(function (err) {
+            console.log(err);
+
+            res.status(503).end();
+        });
     });
 };
