@@ -107,7 +107,7 @@
                     header: {
                         'Content-Type': 'application/json'
                     },
-                    data: {form: vm.form, code: vm.code}
+                    data: {form: vm.form}
                 };
 
                 $http(req)
