@@ -12,7 +12,7 @@ module.exports = function (app, express) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: false}));
   app.use(middle.cors);
-  app.use(express.static('build'));
+  app.use(express.static('./build'));
   app.use(middle.logError);
   app.use(middle.handleError);
 
