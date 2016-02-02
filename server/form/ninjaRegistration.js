@@ -1,31 +1,57 @@
 
-
 module.exports = function (app, db) {
-  app.get('/api/registerNinja', function(req, res) {
-    var registration = db.get('registration');
+  var ninjaSchema = db.Schema({
+    ninjas: [
+        {
+          firstName: String,
+          lastName: String,
+          birthday: Date,
+          under12: Boolean,
+          activities: [
+            {
+              name: String,
+              selected: Boolean
+            }
+          ]
+        }
+    ],
+    bwContact: {
+      firstName: String,
+      lastName: String
+    },
+    parent: {
+        firstName: String,
+        lastName: String,
+        email: String,
+        phone: String
+    },
+    photoPermission: Boolean,
+    comments: String
+  });
 
-    registration.find({}, {}, function(err, docs) {
-      if(docs) {
-        res.status(200).send({number: app.maximumNumberOfNinjas - docs.length});
-      } else if(err) {
-        res.status(503).end();
-      }
-    });
+  var Ninja = db.model('Ninja', ninjaSchema);
+
+  app.get('/api/registerNinja', function(req, res) {
+    Ninja
+      .find({}, function(err, ninjas) {
+        if(ninjas) {
+          res.status(200).send({number: app.maximumNumberOfNinjas - ninjas.length});
+        } else if(err) {
+          res.status(503).end();
+        }
+      });
   });
 
   app.post('/api/registerNinja', function (req, res) {
-    var registration = db.get('registration');
+    var ninja = new Ninja(req.body.form);
 
-    registration.insert(req.body.form)
-        .success(function (doc) {
-          console.log(doc);
+    ninja.save(function(err) {
+      if(err) {
+        res.status(503).end();
+        console.log(err);
+      }
 
-          res.status(200).send({msg: 'Accepted'});
-        })
-        .error(function (err) {
-            console.log(err);
-
-            res.status(503).end();
-        });
-    });
+      res.status(200).send({msg: 'Accepted'});
+      });
+  });
 };
