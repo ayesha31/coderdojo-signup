@@ -19,13 +19,16 @@
         vm.form = {
             ninjas: [
                 {
-                    firstName: '', lastName: '', birthday: new Date(2008, 9, 5), under12: false, activities: [
-                    { name: 'Scratch', selected: false },
-                    { name: 'Edison Robots', selected: false },
-                    { name: 'LEGO Mindstorm Robots', selected: false },
-                    { name: 'Website Development', selected: false },
-                    { name: 'Other', selected: false }
-                ]
+                    firstName: '', lastName: '', birthday: new Date(2008, 9, 5), under12: false,
+                    activities: [
+                      { name: 'Scratch', selected: false },
+                      { name: 'Edison Robots', selected: false },
+                      { name: 'Raspberry Pi', selected: false },
+                      { name: 'Game Maker', selected: false },
+                      { name: 'LEGO Mindstorm Robots', selected: false },
+                      { name: 'Website Development', selected: false },
+                      { name: 'Other', selected: false }
+                    ]
                 }
             ],
             bwContact: { firstName: '', lastName: ''},
@@ -50,6 +53,10 @@
           function success(response) {
               console.log('submit form success', response);
               vm.spotsLeft = response.number;
+
+              if(vm.spotsLeft <= 0) {
+                $state.go('closed');
+              }
           }
 
           function error(err) {
@@ -61,11 +68,13 @@
             console.log('Spots', vm.spotsLeft);
             var ninja = {
                 firstName: '', lastName: '', birthday: new Date(2008, 9, 5), under12: false, activities: [
-                    { name: 'Scratch', selected: false },
-                    { name: 'Edison Robots', selected: false },
-                    { name: 'LEGO Mindstorm Robots', selected: false },
-                    { name: 'Website Development', selected: false },
-                    { name: 'Other', selected: false }
+                  { name: 'Scratch', selected: false },
+                  { name: 'Edison Robots', selected: false },
+                  { name: 'Raspberry Pi', selected: false },
+                  { name: 'Game Maker', selected: false },
+                  { name: 'LEGO Mindstorm Robots', selected: false },
+                  { name: 'Website Development', selected: false },
+                  { name: 'Other', selected: false }
                 ]
             };
 

@@ -47,7 +47,7 @@
 
                     <div class="input-group" ng-init="opened=false">
                         <input type="date" class="form-control" id="ninjaBday" datepicker-popup ng-model="ninja.birthday" is-open="opened" min-date="vm.minDate"
-                               max-date="vm.maxDate" ng-required="true" close-text="Close" min="1998-10-05" max="2008-10-05" required/>
+                               max-date="vm.maxDate" ng-required="true" close-text="Close" min="1999-02-02" max="2009-02-02" required/>
                         <span class="input-group-addon">
                             <i class="fa fa-calendar fa-fw" ng-click="opened = !opened"></i>
                         </span>
@@ -74,13 +74,7 @@
                 <button type="button" class="btn btn-success btn-sm" ng-click="vm.add()">Add Another Ninja</button>
             </div>
             <div class="form-group">
-                <p>* Note that this event is only for females aged 7 to 17 and all ninjas under the age of 12 must be accompanied by an adult at all times</p>
-            </div>
-            <div ng-show="!vm.isBw" class="form-inline">
-                <div class="form-group">
-                    <label for="dojo" class="control-label">What Dojo Do you Regularly Attend?</label>
-                    <input type="text" class="form-noncontrol" id="dojo" placeholder="CoderDojo Name" ng-model="vm.form.dojo" />
-                </div>
+                <p>* Note that this event is only ninjas aged 7 to 17 and all ninjas under the age of 12 must be accompanied by an adult at all times</p>
             </div>
             <br/>
 
