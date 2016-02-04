@@ -34,8 +34,14 @@ module.exports = function (app, db) {
   app.get('/api/registerNinja', function(req, res) {
     Ninja
       .find({}, function(err, ninjas) {
+        var numNinjas = 0;
+
+        for(var i = 0; i < ninjas.length; i++) {
+          numNinjas += ninjas[i].ninjas.length;
+        }
+
         if(ninjas) {
-          res.status(200).send({number: app.maximumNumberOfNinjas - ninjas.length});
+          res.status(200).send({number: app.maximumNumberOfNinjas - numNinjas});
         } else if(err) {
           res.status(503).end();
         }
