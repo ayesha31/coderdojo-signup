@@ -1,4 +1,3 @@
-
 module.exports = function (app, db) {
   var ninjaSchema = db.Schema({
     ninjas: [
@@ -42,6 +41,17 @@ module.exports = function (app, db) {
 
         if(ninjas) {
           res.status(200).send({number: app.maximumNumberOfNinjas - numNinjas});
+        } else if(err) {
+          res.status(503).end();
+        }
+      });
+  });
+
+  app.get('/api/ninjaList', function(req, res) {
+    Ninja
+      .find({}, function(err, ninjas) {
+        if(ninjas) {
+          res.status(200).send(ninjas);
         } else if(err) {
           res.status(503).end();
         }

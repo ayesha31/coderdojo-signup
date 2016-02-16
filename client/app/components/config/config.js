@@ -40,12 +40,12 @@
                     return $templateCache.get('app/closed/closed.html');
                 }
             })
-            // .state('view', {
-            //     url: '/view',
-            //     templateProvider: function ($templateCache) {
-            //         return $templateCache.get('app/view/view.html');
-            //     },
-            //     controller: 'ViewController'
-            // });
+            .state('view', {
+                url: '/view',
+                templateProvider: function ($templateCache) {
+                    return $templateCache.get('app/view/view.html');
+                },
+                controller: 'ViewController'
+            });
     }
 })();
