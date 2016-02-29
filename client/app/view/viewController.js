@@ -6,6 +6,13 @@ angular.module('coderdojo-signup')
 
 	$scope.ninjas = {};
 
+	$scope.isUnder12 = function(date) {
+		var timeDiff = Math.abs(date.getTime() - new Date().getTime());
+		var diffYears = Math.ceil(timeDiff / (1000 * 3600 * 24 * 365));
+
+		return diffYears < 12; 
+	}
+
 	$scope.getNinjaCount = function() {
 		ninjaCount++;
 		return ninjaCount;

@@ -7,8 +7,8 @@
 				<td>Email</td>
 				<td>Phone</td>
 				<td>Ninja Name</td>
-				<td>Ninja Age</td>
-				<td>Laptop Required</td>
+				<td>Ninja Birthdate</td>
+				<td>Under 12?</td>
 			</tr>
 		</thead>
 			<tbody ng-repeat="ninja in ninjas">
@@ -22,9 +22,9 @@
 				<tr ng-repeat="n in ninja.ninjas">
 					<td></td>
 					<td colspan="3"></td>
-					<td>{{n.firstName}}</td>
-					<td>{{n.lastName}}</td>
-					<td>{{n.birthday}}</td>
+					<td>{{n.firstName}} {{n.lastName}}</td>
+					<td>{{n.birthday | date:'dd/MM/yyyy'}}</td>
+					<td>{{isUnder12(n.birthday)}}</td>
 				</tr>
 			</tbody>
 	</table>
