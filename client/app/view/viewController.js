@@ -10,7 +10,7 @@ angular.module('coderdojo-signup')
 		var timeDiff = Math.abs(date.getTime() - new Date().getTime());
 		var diffYears = Math.ceil(timeDiff / (1000 * 3600 * 24 * 365));
 
-		return diffYears < 12; 
+		return diffYears < 12;
 	}
 
 	$scope.getNinjaCount = function() {
@@ -21,6 +21,12 @@ angular.module('coderdojo-signup')
 	$http.get('/api/ninjaList')
 	.success(function(data) {
 		$scope.ninjas = data;
+
+		for(var i = 0; i < $scope.ninjas.length; i++) {
+			for(var j = 0; j < $scope.ninjas[i].ninjas.length; j++) {
+				$scope.ninjas[i].ninjas[j].under12 = isUnder12($scope.ninjas[i].ninjas[j].birthday);
+			}
+		}
 	})
 	.error(function(data) {
 
