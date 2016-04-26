@@ -9,25 +9,25 @@
     ];
 
     function config($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/form');
+        $urlRouterProvider.otherwise('/closed');
 
         $stateProvider
-            .state('form', {
-                url: '/form',
-                templateProvider: function ($templateCache) {
-                    return $templateCache.get('app/form/form.html');
-                },
-                controller: 'FormController',
-                controllerAs: 'vm'
-            })
-            .state('accept', {
-                url: '/accept',
-                templateProvider: function ($templateCache) {
-                    return $templateCache.get('app/accept/accept.html');
-                },
-                controller: 'AcceptController',
-                controllerAs: 'vm'
-            })
+            // .state('form', {
+            //     url: '/form',
+            //     templateProvider: function ($templateCache) {
+            //         return $templateCache.get('app/form/form.html');
+            //     },
+            //     controller: 'FormController',
+            //     controllerAs: 'vm'
+            // })
+            // .state('accept', {
+            //     url: '/accept',
+            //     templateProvider: function ($templateCache) {
+            //         return $templateCache.get('app/accept/accept.html');
+            //     },
+            //     controller: 'AcceptController',
+            //     controllerAs: 'vm'
+            // })
             .state('error', {
                 url: '/error',
                 templateProvider: function ($templateCache) {
