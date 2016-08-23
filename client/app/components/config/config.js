@@ -9,8 +9,6 @@
     ];
 
     function config($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/form');
-
         $stateProvider
             .state('form', {
                 url: '/form',
@@ -46,6 +44,14 @@
                 templateProvider: function ($templateCache) {
                     return $templateCache.get('app/closed/closed.html');
                 }
+            })
+            .state('passcode', {
+                url: '/passcode',
+                templateProvider: function ($templateCache) {
+                    return $templateCache.get('app/passcode/passcode.html');
+                },
+                controller: 'PasscodeController',
+                controllerAs: 'vm'
             });
     }
 })();
