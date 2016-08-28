@@ -4,7 +4,7 @@
   "description": "CoderDojo Registration App",
   "main": "index.js",
   "scripts": {
-    "preinstall": "npm install -g gulp browserify",
+    "preinstall": "npm install gulp browserify",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "gulp dist"
   },
