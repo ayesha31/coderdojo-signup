@@ -1,4 +1,6 @@
 # Coder Dojo Signup
+Edit the client/components/text-constants.js file to change what is displayed on each of the pages. 
+
 ## Environment Variables
 * PORT - the port that the application will be served on
 * URL - the base url that the application is served on
