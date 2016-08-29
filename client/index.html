@@ -17,7 +17,7 @@
 </head>
 <body ng-app="coderdojo-signup">
     <div class="container">
-        <h1 class="title">Bankwest Coder Dojo</h1>
+        <h1 class="title" ng-controller="TextController as vm">{{vm.text.title}}</h1>
         <div ui-view></div>
     </div>
 

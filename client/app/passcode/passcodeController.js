@@ -16,11 +16,12 @@
         vm.passcode = '';
  
         vm.submitPasscode = function() {
-            $http.get('/api/ninja', { params: {passcode: vm.passcode }})
+            $http.get('/api/ninja', { params: {passcode: vm.passcode.toLowerCase() }})
                 .then(function(res) {
                     if(res.data.passcodeSuccessful) {
                         if(checkPlacesRemaining(res.data)) {
                             ApplicantService.applicant.isExternal = res.data.isExternal;
+                            ApplicantService.applicant.passcodeSuccessful = res.data.passcodeSuccessful;
                             ApplicantService.applicant.passcode = vm.passcode;
                             $state.go('form');
                         } else {

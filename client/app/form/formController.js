@@ -24,6 +24,19 @@
 
         vm.applicant = ApplicantService.applicant;
         vm.text = TextConstants;
+        
+        initialise();
+        
+        function initialise() {
+            $http.get('/api/ninja')
+                .then(function(res) {
+                    if(res.data.passcodeRequired && !ApplicantService.applicant.passcodeSuccessful) {
+                        $state.go('passcode');
+                    }
+                }, function(err) {
+                    $state.go('error');
+                });
+        }
 
         function add() {
            ApplicantService.applicant.ninjas.push({});

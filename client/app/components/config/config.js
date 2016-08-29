@@ -23,14 +23,16 @@
                 templateProvider: function ($templateCache) {
                     return $templateCache.get('app/accept/accept.html');
                 },
-                controller: 'AcceptController',
+                controller: 'TextController',
                 controllerAs: 'vm'
             })
             .state('error', {
                 url: '/error',
                 templateProvider: function ($templateCache) {
                     return $templateCache.get('app/error/error.html');
-                }
+                },
+                controller: 'TextController',
+                controllerAs: 'vm'
             })
             .state('view', {
                 url: '/view',
@@ -43,7 +45,9 @@
                 url: '/closed',
                 templateProvider: function ($templateCache) {
                     return $templateCache.get('app/closed/closed.html');
-                }
+                },
+                controller: 'TextController',
+                controllerAs: 'vm'
             })
             .state('passcode', {
                 url: '/passcode',
