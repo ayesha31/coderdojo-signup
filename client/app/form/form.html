@@ -4,7 +4,7 @@
 
 <form name="form">
     <h3 class="title">Ninja Information</h3>
-    <p>Note that this event is only ninjas aged 7 to 17 and all ninjas under the age of 12 must be accompanied by an adult at all times</p>
+    <p>Note that this event is available to ninjas aged 7 to 17 and all ninjas under the age of 12 must be accompanied by an adult at all times</p>
     <div ng-repeat="ninja in vm.applicant.ninjas">
         <div class="columns">
             <div class="column is-3 control">
@@ -22,7 +22,8 @@
             <div class="column is-2 control">
                 <label class="label">Date of Birth</label>
                 <p class="control">
-                    <input type="date" class="input" name="ninjaBday" placeholder="Ninja Last Name" ng-model="ninja.dateOfBirth" required datepicker-popup is-open="opened" min-date="vm.minDate" max-date="vm.maxDate" close-text="Close" min="{{vm.minDate}}" max="{{vm.maxDate}}" ng-blur="vm.validateDateOfBirth(ninja)"/>
+                    <input type="date" class="input" name="ninjaBday{{$index}}" placeholder="Ninja Last Name" ng-model="ninja.dateOfBirth" required datepicker-popup is-open="opened" min-date="vm.minDate" max-date="vm.maxDate" close-text="Close" min="{{vm.minDate}}" max="{{vm.maxDate}}" ng-blur="vm.validateDateOfBirth(ninja, $index)"/>
+                    <span class="help is-danger" ng-if="form['ninjaBday'+$index].$error.invalid">This event is open to ninjas aged 7 to 17.</span>
                 </p>
             </div>
             <div class="column is-1 control" ng-if="vm.applicant.ninjas.length > 1">

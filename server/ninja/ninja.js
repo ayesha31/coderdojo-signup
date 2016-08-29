@@ -37,15 +37,15 @@ module.exports = function(app, db) {
 
       if(result === 'external') {
         getNumberOfNinjas(true).then(function(num) {
-          res.status(200).send({
-            passcodeSuccessful: true,
-            isExternal: true,
-            passcodeRequired: app.passcodeRequired,
-            externalPlacesRemaining: app.maxNonBwNinjas - num
+            res.status(200).send({
+              passcodeSuccessful: true,
+              isExternal: true,
+              passcodeRequired: app.passcodeRequired,
+              externalPlacesRemaining: app.maxNonBwNinjas - num
+            });
           }, function(err) {
             res.status(503).end();
           });
-        });
       } else if(result === 'bankwest') {
         getNumberOfNinjas(false).then(function(num) {
           res.status(200).send({

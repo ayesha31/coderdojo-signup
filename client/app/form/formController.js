@@ -6,15 +6,16 @@
     FormController.$inject = [
         '$http',
         '$state',
+        '$scope',
         'ApplicantService',
         'TextConstants'
     ];
 
-    function FormController($http, $state, ApplicantService, TextConstants) {
+    function FormController($http, $state, $scope, ApplicantService, TextConstants) {
         var vm = this;
 
         var today = new Date();
-        vm.minDate = new Date().setFullYear(today.getFullYear() - 17);
+        vm.minDate = new Date().setFullYear(today.getFullYear() - 18);
         vm.maxDate = new Date().setFullYear(today.getFullYear() - 7);
 
         vm.addNinja = add;
@@ -50,8 +51,13 @@
             ApplicantService.sendApplicant();
         }
 
-        function validateDateOfBirth(ninja) {
-
+        function validateDateOfBirth(ninja, index) {
+            var ninjaString = 'ninjaBday' + index;
+            if(vm.minDate > ninja.dateOfBirth.getTime() || vm.maxDate < ninja.dateOfBirth.getTime()) {
+                $scope.form[ninjaString].$error.invalid = true;
+            } else {
+                $scope.form[ninjaString].$error.invalid = false;
+            }
         }
     }
 })();
