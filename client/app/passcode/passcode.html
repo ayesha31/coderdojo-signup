@@ -1,0 +1,10 @@
+<form name="form">
+    <label class="label">Passcode</label>
+    <p class="control">
+        <input class="input" type="text" ng-model="vm.passcode" name="passcode" required ng-class="{'is-danger': form.passcode.$error.invalid}"/>
+        <span class="help is-danger" ng-show="form.passcode.$error.invalid">Passcode is incorrect.</span>
+    </p>
+    <p class="control">
+        <button class="button is-primary" ng-click="vm.submitPasscode()">Submit</button>
+    </p>
+</form>

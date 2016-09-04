@@ -12,7 +12,13 @@ module.exports = function (app, express) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: false}));
   app.use(middle.cors);
-  app.use(express.static('dist'));
+  app.use(express.static(__dirname + '/../dist'));
   app.use(middle.logError);
   app.use(middle.handleError);
+
+  app.passcodeRequired = process.env.PASSCODE_REQUIRED === 'true';
+  app.maxBwNinjas = parseInt(process.env.MAX_BW_NINJAS) || 15;
+  app.maxNonBwNinjas = parseInt(process.env.MAX_NON_BW_NINJAS) || 15;
+  app.bwPasscode = process.env.BW_PASSCODE || 'bankwest';
+  app.externalPasscode = process.env.EXTERNAL_PASSCODE || 'external';
 };

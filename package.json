@@ -4,8 +4,9 @@
   "description": "CoderDojo Registration App",
   "main": "index.js",
   "scripts": {
-    "preinstall": "npm install -g bower gulp browserify",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "preinstall": "npm install gulp browserify",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "gulp dist"
   },
   "repository": {
     "type": "git",
@@ -14,21 +15,14 @@
   "author": "Melissa Ettinger",
   "private": true,
   "browser": {
-    "angular": "./lib/angular/angular.min.js",
-    "ui.router": "./lib/angular-ui-router/release/angular-ui-router.min.js",
-    "ui.bootstrap": "./lib/angular-bootstrap/ui-bootstrap.min.js",
-    "ui.bootstrap.tpls":"./lib/angular-bootstrap/ui-bootstrap-tpls.min.js"
+    "angular": "./node_modules/angular/angular.min.js",
+    "ui.router": "./node_modules/angular-ui-router/release/angular-ui-router.min.js",
+    "bulma": "./node_modules/bulma/css/bulma.css"
   },
   "browserify-shim": {
     "angular": "angular",
     "ui.router": {
       "exports": "angular.module('ui.router')"
-    },
-    "ui.bootstrap": {
-      "exports": "angular.module('ui.bootstrap')"
-    },
-    "ui.bootstrap.tpls": {
-        "exports": "angular.module('ui.bootstrap.tpls')"
     }
   },
   "browserify": {
@@ -36,7 +30,7 @@
       "browserify-shim"
     ]
   },
-  "devDependencies": {
+  "dependencies": {
     "browserify": "^11.0.1",
     "browserify-css": "^0.6.1",
     "browserify-shim": "^3.8.10",
@@ -63,14 +57,16 @@
     "run-sequence": "^1.1.2",
     "stream-series": "^0.1.1",
     "tiny-lr": "^0.1.6",
-    "vinyl-source-stream": "^1.1.0"
-  },
-  "dependencies": {
+    "vinyl-source-stream": "^1.1.0",
+    "angular": "^1.5.8",
+    "angular-ui-router": "^0.3.1",
     "body-parser": "^1.13.3",
+    "bulma": "^0.1.2",
     "express": "^4.13.3",
+    "font-awesome": "^4.6.3",
     "lodash": "^3.10.1",
-    "mongodb": "^2.0.42",
-    "monk": "^1.0.1"
+    "mongodb": "^2.1.4",
+    "mongoose": "^4.3.7"
   },
   "bugs": {
     "url": "https://github.com/melissaettinger/coderdojo-signup/issues"

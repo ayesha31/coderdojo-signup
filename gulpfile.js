@@ -165,11 +165,7 @@ gulp.task('inject', ['preBuild'], function () {
 });
 
 gulp.task('express', ['build', 'inject'], function () {
-    var app = express();
-    app.use(express.static(config.dest));
-    app.listen(config.ports.app, function () {
-        $.util.log($.util.colors.magenta('Listening on', config.ports.app));
-    });
+    var server = require('./server.js');
 });
 
 gulp.task('reload', ['build', 'express'], function () {
