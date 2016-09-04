@@ -40,7 +40,7 @@ gulp.task('lint', function () {
 });
 
 gulp.task('scripts', ['lint'], function () {
-    return gulp.src(config.js)
+    return gulp.src(config.js.concat('temp/config.js'))
         .pipe($.sourcemaps.init())
         // concat
         .pipe($.concat(config.appName + '.js'))
@@ -199,17 +199,24 @@ require('dotenv').load();
 var envConfig = require('./server/app.js').config;
 
 gulp.task('ng-config', function() {
+    var dir = './temp';
+
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir, '0744');
+    }
+
     fs.writeFileSync('temp/config.json',
         JSON.stringify(envConfig));
+
     gulp.src('temp/config.json')
         .pipe($.ngConfig(config.appName + '.config', {
             //createModule: false
         })
-    ).pipe(gulp.dest(config.dest));
+    ).pipe(gulp.dest('temp'));
 });
 
 
-gulp.task('preBuild', ['lint', 'scripts', 'templates', 'css', 'images', 'fonts', 'browserify']);
+gulp.task('preBuild', ['lint', 'ng-config', 'scripts', 'templates', 'css', 'images', 'fonts', 'browserify']);
 gulp.task('build', ['preBuild', 'inject']);
 gulp.task('default', function (cb) {
     runSequence('clean', ['build', 'express', 'reload', 'watch', 'open'], cb)
