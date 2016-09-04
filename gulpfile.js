@@ -15,6 +15,7 @@ var series = require('stream-series');
 var client = require('tiny-lr')();
 var express = require('express');
 var runSequence = require('run-sequence');
+var fs = require('fs');
 
 
 gulp.task('clean', function (cb) {
@@ -191,6 +192,20 @@ gulp.task('watch', ['build', 'express', 'reload'], function () {
 gulp.task('open', ['watch'], function () {
     gulp.src('')
         .pipe($.open({app: 'chrome', uri: 'http://localhost:' + config.ports.app}));
+});
+
+
+require('dotenv').load();
+var envConfig = require('./server/app.js').config;
+
+gulp.task('ng-config', function() {
+    fs.writeFileSync('temp/config.json',
+        JSON.stringify(envConfig));
+    gulp.src('temp/config.json')
+        .pipe($.ngConfig(config.appName + '.config', {
+            //createModule: false
+        })
+    ).pipe(gulp.dest(config.dest));
 });
 
 

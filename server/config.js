@@ -21,4 +21,8 @@ module.exports = function (app, express) {
   app.maxNonBwNinjas = parseInt(process.env.MAX_NON_BW_NINJAS) || 15;
   app.bwPasscode = process.env.BW_PASSCODE || 'bankwest';
   app.externalPasscode = process.env.EXTERNAL_PASSCODE || 'external';
+
+  app.config = {};
+  app.config.isGirlsDojo = process.env.GIRLS_DOJO === 'true';
+  app.config.passcodeRequired = process.env.PASSCODE_REQUIRED === 'true';
 };
