@@ -210,7 +210,7 @@ gulp.task('ng-config', function() {
 
     gulp.src('temp/config.json')
         .pipe($.ngConfig(config.appName + '.config', {
-            //createModule: false
+            wrap: true
         })
     ).pipe(gulp.dest('temp'));
 });
