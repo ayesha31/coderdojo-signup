@@ -6,9 +6,7 @@ var config = require('./gulp.config.js');
 var $ = require('gulp-load-plugins')({lazy: true});
 var del = require('del');
 var browserify = require('browserify');
-var browserifyCss = require('browserify-css');
 var path = require('path');
-var fse = require('fs-extra');
 var _ = require('lodash');
 var source = require('vinyl-source-stream');
 var series = require('stream-series');
@@ -19,7 +17,7 @@ var fs = require('fs');
 
 
 gulp.task('clean', function (cb) {
-    del([config.dest, 'temp'], {force: true}, cb);
+    del([config.dest, 'dev', 'dist', 'temp'], {force: true}, cb);
 });
 
 gulp.task('lint', function () {
@@ -39,7 +37,43 @@ gulp.task('lint', function () {
         .pipe($.livereload(client))
 });
 
+require('dotenv').load();
+var envConfig = require('./server/app.js').config;
+
+gulp.task('ng-config', function() {
+    var dir = './temp';
+
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir, '0744');
+    }
+
+    fs.writeFileSync('temp/config.json',
+        JSON.stringify(envConfig));
+
+    gulp.src('temp/config.json')
+        .pipe($.ngConfig(config.appName + '.config', {
+            wrap: true
+        })
+    ).pipe(gulp.dest('temp'));
+});
+
 gulp.task('scripts', ['lint'], function () {
+    return gulp.src(config.js.concat('temp/config.js'))
+        // concat
+        .pipe($.concat(config.appName + '.js'))
+        .on('end', function () {
+            $.util.log($.util.colors.cyan('concat complete'))
+        })
+        // annotate
+        .pipe($.ngAnnotate({add: true}))
+        .on('end', function () {
+            $.util.log($.util.colors.magenta('ngAnnotate complete'))
+        })
+        .pipe(gulp.dest(config.dest))
+        .pipe($.livereload(client));
+});
+
+gulp.task('dist:scripts', ['lint'], function () {
     return gulp.src(config.js.concat('temp/config.js'))
         .pipe($.sourcemaps.init())
         // concat
@@ -87,7 +121,9 @@ gulp.task('css', ['fonts'], function () {
     return gulp.src(config.less)
         .pipe($.less())
         .pipe($.autoprefixer('last 2 versions', 'ie 8', 'ie 9'))
-        .pipe(gulp.dest('temp'))
+        .pipe($.minifyCss({compatibility: 'ie8'}))
+        .pipe($.rename({extname: '.min.css'}))
+        .pipe(gulp.dest(config.dest))
         .pipe($.livereload(client));
 });
 
@@ -100,89 +136,69 @@ gulp.task('images', function () {
 
 gulp.task('fonts', function () {
     return gulp.src(config.fonts)
-        .pipe(gulp.dest('temp/fonts'))
+        .pipe(gulp.dest('build/fonts'))
         .pipe($.livereload(client));
 });
 
-gulp.task('browserify', ['css', 'fonts'], function () {
-    function processRelativeUrl(relativeUrl) {
-        var stripQueryStringAndHashFromPath = function (url) {
-            return url.split('?')[0].split('#')[0];
-        };
-        var rootDir = path.resolve(process.cwd(), config.dest);
-        var relativePath = stripQueryStringAndHashFromPath(relativeUrl);
-        var queryStringAndHash = relativeUrl.substring(relativePath.length);
-
-        relativePath = relativePath.replace(/\\/g, '/');
-
-        var libPrefix = '../lib/';
-        var bwPrefix = '../temp/';
-
-        function copy(prefix) {
-            var locationPath = relativePath.substring(prefix.length);
-            var match = locationPath.match(/\/(fonts\/.*)/);
-            locationPath = match ? match[1] : locationPath;
-            var source = path.join(rootDir, relativePath);
-            var target = path.join(rootDir, locationPath);
-
-            fse.copySync(source, target);
-            return locationPath + queryStringAndHash;
-        }
-
-        if (_.startsWith(relativePath, libPrefix)) {
-            return copy(libPrefix);
-        }
-        else if (_.startsWith(relativePath, bwPrefix)) {
-            return copy(bwPrefix);
-        }
-
-        return relativeUrl;
-    }
-
+gulp.task('browserify', function () {
     return browserify({entries: config.browserify.entries})
-        .transform(browserifyCss, {
-            global: true,
-            autoInject: true,
-            minify: true,
-            rootDir: config.dest,
-            processRelativeUrl: processRelativeUrl
-        })
         .bundle()
         .pipe(source(config.browserify.bundleName))
         .pipe(gulp.dest(config.dest))
         .pipe($.livereload(client));
 });
 
-gulp.task('inject', ['preBuild'], function () {
+gulp.task('dev:inject', function () {
     var injectConfig = {ignorePath: 'build/', addRootSlash: false};
 
-    var libStream = gulp.src(config.dest + '/libs.js', {read: false});
-    var appStream = gulp.src([config.dest + '/*.js', '!' + config.dest + '/libs.js'], {read: false});
+    var libStream      = gulp.src(config.dest + '/libs.js', {read: false});
+    var appStream      = gulp.src([config.dest + '/' + config.appName + '.js'], {read: false});
+    var otherAppStream = gulp.src([config.dest + '/*.js', '!' + config.dest + '/libs.js', '!' + config.dest + '/' + config.appName + '.js'], {read: false});
+    var cssStream      = gulp.src(config.dest + '/' + config.appName + '.min.css', {read: false});
 
     return gulp.src('client/index.html')
-        .pipe($.inject(series(libStream, appStream), injectConfig))
+        .pipe($.inject(cssStream, injectConfig))
+        .pipe($.inject(series(libStream, appStream, otherAppStream), injectConfig))
         .pipe(gulp.dest(config.dest))
         .pipe($.livereload(client));
 });
 
-gulp.task('express', ['build', 'inject'], function () {
-    var server = require('./server.js');
+gulp.task('inject', function () {
+    var injectConfig = {ignorePath: 'build/', addRootSlash: false};
+
+    var libStream      = gulp.src(config.dest + '/libs.js', {read: false});
+    var appStream      = gulp.src([config.dest + '/' + config.appName + '.min.js'], {read: false});
+    var otherAppStream = gulp.src([config.dest + '/*.js', '!' + config.dest + '/libs.js', '!' + config.dest + '/' + config.appName + '.min.js'], {read: false});
+    var cssStream      = gulp.src(config.dest + '/' + config.appName + '.min.css', {read: false});
+
+    return gulp.src('client/index.html')
+        .pipe($.inject(cssStream, injectConfig))
+        .pipe($.inject(series(libStream, appStream, otherAppStream), injectConfig))
+        .pipe(gulp.dest(config.dest))
+        .pipe($.livereload(client));
 });
 
-gulp.task('reload', ['build', 'express'], function () {
+gulp.task('express', ['dev', 'inject'], function () {
+    var app   = require('./server/app.js');
+    app.use(express.static(config.dest));
+    app.listen(config.ports.app, function () {
+        $.util.log($.util.colors.magenta('Listening on', config.ports.app));
+    });
+});
+
+gulp.task('reload', ['dev', 'express'], function () {
     client.listen(config.ports.liveReload, function () {
         $.util.log($.util.colors.cyan('Reload listening on', config.ports.liveReload));
     });
 });
 
-gulp.task('watch', ['build', 'express', 'reload'], function () {
+gulp.task('watch', ['dev', 'express', 'reload'], function () {
     gulp.watch(config.js, ['scripts', 'browserify', 'inject']);
-    gulp.watch([config.less, 'client/styles/**'], ['browserify', 'inject']);
+    gulp.watch([config.less, 'client/styles/**'], ['css', 'inject']);
     gulp.watch(config.templates, ['templates', 'inject']);
-    gulp.watch(config.cssLibs, ['browserify', 'inject']);
-    gulp.watch('client/index.html', ['build']);
+    gulp.watch('client/index.html', ['dev']);
 
-    gulp.watch(['gulp.config.js', 'gulpfile.js', 'package.json'], ['build']);
+    gulp.watch(['gulp.config.js', 'gulpfile.js', 'package.json'], ['dev']);
 
     gulp.watch(config.dest + '/**').on('change', function () {
         client.changed({body: {files: [config.dest + '/**/*']}})
@@ -194,32 +210,18 @@ gulp.task('open', ['watch'], function () {
         .pipe($.open({app: 'chrome', uri: 'http://localhost:' + config.ports.app}));
 });
 
+gulp.task('preBuild', ['lint', 'ng-config', 'dist:scripts', 'templates', 'css', 'images', 'fonts', 'browserify']);
 
-require('dotenv').load();
-var envConfig = require('./server/app.js').config;
-
-gulp.task('ng-config', function() {
-    var dir = './temp';
-
-    if (!fs.existsSync(dir)){
-        fs.mkdirSync(dir, '0744');
-    }
-
-    fs.writeFileSync('temp/config.json',
-        JSON.stringify(envConfig));
-
-    gulp.src('temp/config.json')
-        .pipe($.ngConfig(config.appName + '.config', {
-            wrap: true
-        })
-    ).pipe(gulp.dest('temp'));
+gulp.task('build', function (cb) {
+    runSequence('clean', 'preBuild', 'inject', cb);
 });
 
-
-gulp.task('preBuild', ['lint', 'ng-config', 'scripts', 'templates', 'css', 'images', 'fonts', 'browserify']);
-gulp.task('build', ['preBuild', 'inject']);
+gulp.task('dev:preBuild', ['lint', 'ng-config', 'scripts', 'templates', 'css', 'images', 'fonts', 'browserify']);
+gulp.task('dev', function (cb) {
+    runSequence('dev:preBuild', 'dev:inject', cb);
+});
 gulp.task('default', function (cb) {
-    runSequence('clean', ['build', 'express', 'reload', 'watch', 'open'], cb)
+    runSequence('clean', ['dev', 'express', 'reload', 'watch', 'open'], cb);
 });
 
 gulp.task('dist', ['build'], function () {

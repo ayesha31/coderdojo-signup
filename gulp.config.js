@@ -14,11 +14,9 @@ module.exports = {
     less: [
         'client/styles/coderdojo-signup.less'
     ],
-    cssLibs: [
-        'node_modules/font-awesome/css/font-awesome.min.css'
-    ],
     fonts: [
-        'client/fonts/**/*'
+        'client/fonts/**/*',
+        'node_modules/font-awesome/fonts/**/*'
     ],
     images: [
         'client/images/**/*'
