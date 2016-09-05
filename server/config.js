@@ -25,4 +25,6 @@ module.exports = function (app, express) {
   app.config = {};
   app.config.isGirlsDojo = process.env.GIRLS_DOJO === 'true';
   app.config.passcodeRequired = process.env.PASSCODE_REQUIRED === 'true';
+  app.config.eventDate = process.env.EVENT_DATE || null;
+  app.config.eventDateLong = process.env.EVENT_DATE_LONG || '';
 };

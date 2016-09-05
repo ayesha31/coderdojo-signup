@@ -7,11 +7,20 @@
         '$http',
         '$state',
         '$scope',
-        'ApplicantService'
+        'ApplicantService',
+        'TextConstants',
+        'isGirlsDojo',
+        'eventDate'
     ];
 
-    function PasscodeController($http, $state, $scope, ApplicantService) {
+    function PasscodeController($http, $state, $scope, ApplicantService, TextConstants, isGirlsDojo, eventDate) {
         var vm = this;
+
+        vm.isGirlsDojo = isGirlsDojo;
+
+        if (vm.isGirlsDojo && eventDate) {
+            vm.eventDate = eventDate;
+        }
 
         vm.passcode = '';
  
