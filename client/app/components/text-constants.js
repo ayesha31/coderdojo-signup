@@ -36,7 +36,7 @@
 
 
         if (isGirlsDojo) {
-            text.information = 'The first Girls only CoderDojo Event at Bankwest, consisting of only female mentors and female ninjas, will be held on '
+            text.information = 'The Girls CoderDojo Event at Bankwest, consisting of all female mentors and female ninjas, will be held on '
                 + eventDateLong
                 + ' from 10:00am to 3:00pm at Bankwest Place located in the Perth CBD. During that time period the ninjas will get to choose from a number of '
                 + 'different stations where they can build and program robots, create websites or animate scenes and create games. At the end of the event we '
