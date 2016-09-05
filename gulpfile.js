@@ -15,6 +15,9 @@ var express = require('express');
 var runSequence = require('run-sequence');
 var fs = require('fs');
 
+require('dotenv').load();
+var envConfig = require('./server/app.js').config;
+
 
 gulp.task('clean', function (cb) {
     del([config.dest, 'dev', 'dist', 'temp'], {force: true}, cb);
@@ -36,9 +39,6 @@ gulp.task('lint', function () {
         .pipe($.eslint.failOnError())
         .pipe($.livereload(client))
 });
-
-require('dotenv').load();
-var envConfig = require('./server/app.js').config;
 
 gulp.task('ng-config', function() {
     var dir = './temp';
@@ -118,7 +118,9 @@ gulp.task('templates', function () {
 });
 
 gulp.task('css', ['fonts'], function () {
-    return gulp.src(config.less)
+    var src = envConfig.isGirlsDojo ? config.girlsLess : config.less;
+
+    return gulp.src(src)
         .pipe($.less())
         .pipe($.autoprefixer('last 2 versions', 'ie 8', 'ie 9'))
         .pipe($.minifyCss({compatibility: 'ie8'}))

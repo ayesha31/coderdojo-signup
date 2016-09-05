@@ -14,6 +14,9 @@ module.exports = {
     less: [
         'client/styles/coderdojo-signup.less'
     ],
+    girlsLess: [
+        'client/styles/girls/coderdojo-signup.less'
+    ],
     fonts: [
         'client/fonts/**/*',
         'node_modules/font-awesome/fonts/**/*'
