@@ -18,11 +18,11 @@ var fs = require('fs');
 if (fs.existsSync('.env')) {
     require('dotenv').load();
 }
-var envConfig = require('./server/app.js').config;
+var envConfig = require('./server/config.js').envConfig();
 
 
 gulp.task('clean', function (cb) {
-    del([config.dest, 'dev', 'dist', 'temp'], {force: true}, cb);
+    del([config.dest, 'temp'], {force: true}, cb);
 });
 
 gulp.task('lint', function () {
@@ -52,30 +52,14 @@ gulp.task('ng-config', function() {
     fs.writeFileSync('temp/config.json',
         JSON.stringify(envConfig));
 
-    gulp.src('temp/config.json')
+    return gulp.src('temp/config.json')
         .pipe($.ngConfig(config.appName + '.config', {
             wrap: true
         })
     ).pipe(gulp.dest('temp'));
 });
 
-gulp.task('scripts', ['lint'], function () {
-    return gulp.src(config.js.concat('temp/config.js'))
-        // concat
-        .pipe($.concat(config.appName + '.js'))
-        .on('end', function () {
-            $.util.log($.util.colors.cyan('concat complete'))
-        })
-        // annotate
-        .pipe($.ngAnnotate({add: true}))
-        .on('end', function () {
-            $.util.log($.util.colors.magenta('ngAnnotate complete'))
-        })
-        .pipe(gulp.dest(config.dest))
-        .pipe($.livereload(client));
-});
-
-gulp.task('dist:scripts', ['lint'], function () {
+gulp.task('scripts', ['lint', 'ng-config'], function () {
     return gulp.src(config.js.concat('temp/config.js'))
         .pipe($.sourcemaps.init())
         // concat
@@ -152,22 +136,8 @@ gulp.task('browserify', function () {
         .pipe($.livereload(client));
 });
 
-gulp.task('dev:inject', function () {
-    var injectConfig = {ignorePath: 'build/', addRootSlash: false};
 
-    var libStream      = gulp.src(config.dest + '/libs.js', {read: false});
-    var appStream      = gulp.src([config.dest + '/' + config.appName + '.js'], {read: false});
-    var otherAppStream = gulp.src([config.dest + '/*.js', '!' + config.dest + '/libs.js', '!' + config.dest + '/' + config.appName + '.js'], {read: false});
-    var cssStream      = gulp.src(config.dest + '/' + config.appName + '.min.css', {read: false});
-
-    return gulp.src('client/index.html')
-        .pipe($.inject(cssStream, injectConfig))
-        .pipe($.inject(series(libStream, appStream, otherAppStream), injectConfig))
-        .pipe(gulp.dest(config.dest))
-        .pipe($.livereload(client));
-});
-
-gulp.task('inject', function () {
+gulp.task('inject', ['preBuild'], function () {
     var injectConfig = {ignorePath: 'build/', addRootSlash: false};
 
     var libStream      = gulp.src(config.dest + '/libs.js', {read: false});
@@ -182,7 +152,7 @@ gulp.task('inject', function () {
         .pipe($.livereload(client));
 });
 
-gulp.task('express', ['dev', 'inject'], function () {
+gulp.task('express', ['build', 'inject'], function () {
     var app   = require('./server/app.js');
     app.use(express.static(config.dest));
     app.listen(config.ports.app, function () {
@@ -190,19 +160,19 @@ gulp.task('express', ['dev', 'inject'], function () {
     });
 });
 
-gulp.task('reload', ['dev', 'express'], function () {
+gulp.task('reload', ['build', 'express'], function () {
     client.listen(config.ports.liveReload, function () {
         $.util.log($.util.colors.cyan('Reload listening on', config.ports.liveReload));
     });
 });
 
-gulp.task('watch', ['dev', 'express', 'reload'], function () {
+gulp.task('watch', ['build', 'express', 'reload'], function () {
     gulp.watch(config.js, ['scripts', 'browserify', 'inject']);
     gulp.watch([config.less, 'client/styles/**'], ['css', 'inject']);
     gulp.watch(config.templates, ['templates', 'inject']);
-    gulp.watch('client/index.html', ['dev']);
+    gulp.watch('client/index.html', ['build']);
 
-    gulp.watch(['gulp.config.js', 'gulpfile.js', 'package.json'], ['dev']);
+    gulp.watch(['gulp.config.js', 'gulpfile.js', 'package.json'], ['build']);
 
     gulp.watch(config.dest + '/**').on('change', function () {
         client.changed({body: {files: [config.dest + '/**/*']}})
@@ -214,18 +184,15 @@ gulp.task('open', ['watch'], function () {
         .pipe($.open({app: 'chrome', uri: 'http://localhost:' + config.ports.app}));
 });
 
-gulp.task('preBuild', ['lint', 'ng-config', 'dist:scripts', 'templates', 'css', 'images', 'fonts', 'browserify']);
+
+gulp.task('preBuild', ['lint', 'ng-config', 'scripts', 'templates', 'css', 'images', 'fonts', 'browserify']);
 
 gulp.task('build', function (cb) {
     runSequence('clean', 'preBuild', 'inject', cb);
 });
 
-gulp.task('dev:preBuild', ['lint', 'ng-config', 'scripts', 'templates', 'css', 'images', 'fonts', 'browserify']);
-gulp.task('dev', function (cb) {
-    runSequence('dev:preBuild', 'dev:inject', cb);
-});
 gulp.task('default', function (cb) {
-    runSequence('clean', ['dev', 'express', 'reload', 'watch', 'open'], cb);
+    runSequence('clean', ['build', 'dist', 'express', 'reload', 'watch', 'open'], cb)
 });
 
 gulp.task('dist', ['build'], function () {

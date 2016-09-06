@@ -5,7 +5,7 @@ var middle      = require('./middleware');
 /*
  * Global env variables
 */
-module.exports = function (app, express) {
+function config(app, express) {
   app.set('port', process.env.PORT || 5000);
   app.set('base url', process.env.URL || 'http://localhost');
 
@@ -22,12 +22,19 @@ module.exports = function (app, express) {
   app.bwPasscode = process.env.BW_PASSCODE || 'bankwest';
   app.externalPasscode = process.env.EXTERNAL_PASSCODE || 'external';
 
-  app.config = {};
-  app.config.isGirlsDojo = process.env.GIRLS_DOJO === 'true';
-  app.config.passcodeRequired = process.env.PASSCODE_REQUIRED === 'true';
-  app.config.eventInfo = {
-      name: process.env.EVENT_NAME || 'Bankwest CoderDojo',
-      date: process.env.EVENT_DATE || 'TBA',
-      dateShort: process.env.EVENT_DATE_SHORT || 'TBA'
-  };
-};
+}
+
+function envConfig() {
+    return {
+        isGirlsDojo: process.env.GIRLS_DOJO === 'true',
+        passcodeRequired: process.env.PASSCODE_REQUIRED === 'true',
+        eventInfo: {
+            name: process.env.EVENT_NAME || 'Bankwest CoderDojo',
+            date: process.env.EVENT_DATE || 'TBA',
+            dateShort: process.env.EVENT_DATE_SHORT || 'TBA'
+        }
+    }
+}
+
+module.exports.envConfig = envConfig;
+module.exports.config = config;

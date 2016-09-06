@@ -9,7 +9,7 @@ var db = mongoose.connection;
  * Application server
  */
 var app = express();
-require('./config.js')(app, express);
+require('./config.js').config(app, express);
 
 db.once('open', function() {
   // require('../form/ninjaRegistration.js')(app, mongoose);
