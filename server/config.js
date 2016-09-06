@@ -25,7 +25,9 @@ module.exports = function (app, express) {
   app.config = {};
   app.config.isGirlsDojo = process.env.GIRLS_DOJO === 'true';
   app.config.passcodeRequired = process.env.PASSCODE_REQUIRED === 'true';
-  app.config.eventDate = process.env.EVENT_DATE || 'tba';
-  app.config.eventDateLong = process.env.EVENT_DATE_LONG || 'tba';
-  app.config.eventName = process.env.EVENT_NAME || 'Bankwest CoderDojo'
+  app.config.eventInfo = {
+      name: process.env.EVENT_NAME || 'Bankwest CoderDojo',
+      date: process.env.EVENT_DATE || 'TBA',
+      dateShort: process.env.EVENT_DATE_SHORT || 'TBA'
+  };
 };

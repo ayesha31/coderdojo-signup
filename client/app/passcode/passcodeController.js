@@ -10,16 +10,16 @@
         'ApplicantService',
         'TextConstants',
         'isGirlsDojo',
-        'eventDate'
+        'eventInfo'
     ];
 
-    function PasscodeController($http, $state, $scope, ApplicantService, TextConstants, isGirlsDojo, eventDate) {
+    function PasscodeController($http, $state, $scope, ApplicantService, TextConstants, isGirlsDojo, eventInfo) {
         var vm = this;
 
         vm.isGirlsDojo = isGirlsDojo;
 
-        if (vm.isGirlsDojo && eventDate) {
-            vm.eventDate = eventDate;
+        if (vm.isGirlsDojo && eventInfo.dateShort) {
+            vm.eventDateShort = eventInfo.dateShort;
         }
 
         vm.passcode = '';
