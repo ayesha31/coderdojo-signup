@@ -1,0 +1,70 @@
+<!-- Girls Dojo Passcode page -->
+<div ng-if="vm.isGirlsDojo" class="container passcode">
+    <div class="columns main-img">
+        <div class="column is-2 is-offset-2">
+            <h2 class="title is-3">{{vm.eventDateShort}}</h2>
+        </div>
+        <div class="column is-2">
+            <i class="fa fa-female large"></i>
+        </div>
+        <div class="column is-2">
+            <span><img src="images/coderdojo.png"/></span>
+        </div>
+        <div class="column is-2">
+            <h2 class="title is-3">10am - 3pm</h2>
+        </div>
+        <div class="column is-2"></div>
+    </div>
+    <div>
+        <h3 class="subtitle is-3">Bankwest Place 300 Murray Street, Perth WA</h3>
+    </div>
+    <br/>
+
+    <div class="content">
+        <p>CoderDojo is a programming club for young people between the ages of 7 and 17. At a Dojo, young people learn how to code, develop websites,
+            apps, programs, build and program robots and explore technology in an informal and creative environment. The Annual Girls CoderDojo Event
+            at Bankwest is aimed to help bridge the gender gap in technology based fields for now and future generations. The event will be run by all
+            female mentors actively working in the technology field who hope to inspire the female ninjas of CoderDojo WA.</p>
+        <br/>
+
+        <p>This is an exclusive event for female ninjas actively involved in a CoderDojo in WA and space is limited, so you need a registration code to
+            continue. If you do not have a registration code, please contact the CoderDojo
+            Champions of the Dojo you regularly attend. Thank you for your cooperation.</p>
+    </div>
+</div>
+<br/>
+<div class="container">
+    <div class="column is-half is-offset-one-quarter">
+        <form name="form" ng-submit="vm.submitPasscode()">
+            <label for="code" class="label sr-only">Registration Code</label>
+            <div class="control">
+                <input type="text" class="input" id="code" ng-model="vm.passcode" name="passcode" required
+                       ng-class="{'is-danger': form.passcode.$error.invalid}" placeholder="Registration Code">
+                <span class="help is-danger" ng-show="form.passcode.$error.invalid">Passcode is incorrect.</span>
+            </div>
+            <div class="control"><button type="submit" class="button is-primary">Submit</button></div>
+        </form>
+    </div>
+</div>
+<br/>
+<br/>
+<div class="column is-half is-offset-one-quarter">
+    <p class="content">For any other queries please contact us at <b>coderdojo@bankwest.com.au</b></p>
+</div>
+
+
+<!-- Default passcode page -->
+<div ng-if="!vm.isGirlsDojo">
+    <form name="form">
+        <label class="label">Passcode</label>
+
+        <p class="control">
+            <input class="input" type="text" ng-model="vm.passcode" name="passcode" required ng-class="{'is-danger': form.passcode.$error.invalid}"/>
+            <span class="help is-danger" ng-show="form.passcode.$error.invalid">Passcode is incorrect.</span>
+        </p>
+
+        <p class="control">
+            <button class="button is-primary" ng-click="vm.submitPasscode()">Submit</button>
+        </p>
+    </form>
+</div>

@@ -14,12 +14,12 @@ module.exports = {
     less: [
         'client/styles/coderdojo-signup.less'
     ],
-    cssLibs: [
-        'lib/components-font-awesome/css/font-awesome.min.css',
-        'lib/bootstrap-css-only/css/bootstrap.min.css'
+    girlsLess: [
+        'client/styles/girls/coderdojo-signup.less'
     ],
     fonts: [
-        'client/fonts/**/*'
+        'client/fonts/**/*',
+        'node_modules/font-awesome/fonts/**/*'
     ],
     images: [
         'client/images/**/*'
