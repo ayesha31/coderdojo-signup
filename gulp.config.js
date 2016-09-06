@@ -18,8 +18,7 @@ module.exports = {
         'client/styles/girls/coderdojo-signup.less'
     ],
     fonts: [
-        'client/fonts/**/*',
-        'node_modules/font-awesome/fonts/**/*'
+        'client/fonts/**/*'
     ],
     images: [
         'client/images/**/*'

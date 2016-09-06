@@ -117,7 +117,6 @@ gulp.task('css', ['fonts'], function () {
 
 gulp.task('images', function () {
     return gulp.src(config.images)
-        //.pipe($.imagemin()) Note: cannot use image min behind the proxy
         .pipe(gulp.dest(config.dest + '/images'))
         .pipe($.livereload(client));
 });
@@ -160,13 +159,13 @@ gulp.task('express', ['build', 'inject'], function () {
     });
 });
 
-gulp.task('reload', ['build', 'express'], function () {
+gulp.task('reload', ['build', 'dist', 'express'], function () {
     client.listen(config.ports.liveReload, function () {
         $.util.log($.util.colors.cyan('Reload listening on', config.ports.liveReload));
     });
 });
 
-gulp.task('watch', ['build', 'express', 'reload'], function () {
+gulp.task('watch', ['build', 'dist', 'express', 'reload'], function () {
     gulp.watch(config.js, ['scripts', 'browserify', 'inject']);
     gulp.watch([config.less, 'client/styles/**'], ['css', 'inject']);
     gulp.watch(config.templates, ['templates', 'inject']);

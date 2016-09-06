@@ -5,7 +5,7 @@
             <h2 class="title is-3">{{vm.eventDateShort}}</h2>
         </div>
         <div class="column is-2">
-            <i class="fa fa-female large"></i>
+            <span><img src="images/female.png"/></span>
         </div>
         <div class="column is-2">
             <span><img src="images/coderdojo.png"/></span>
@@ -33,23 +33,19 @@
     </div>
 </div>
 <br/>
-<div class="container">
-    <div class="column is-half is-offset-one-quarter">
-        <form name="form" ng-submit="vm.submitPasscode()">
-            <label for="code" class="label sr-only">Registration Code</label>
-            <div class="control">
-                <input type="text" class="input" id="code" ng-model="vm.passcode" name="passcode" required
-                       ng-class="{'is-danger': form.passcode.$error.invalid}" placeholder="Registration Code">
-                <span class="help is-danger" ng-show="form.passcode.$error.invalid">Passcode is incorrect.</span>
-            </div>
-            <div class="control"><button type="submit" class="button is-primary">Submit</button></div>
-        </form>
-    </div>
+<div class="column is-half is-offset-one-quarter">
+    <form name="form" ng-submit="vm.submitPasscode()">
+        <div class="control">
+            <input type="text" class="input" id="code" ng-model="vm.passcode" name="passcode" required
+                   ng-class="{'is-danger': form.passcode.$error.invalid}" placeholder="Registration Code">
+            <span class="help is-danger" ng-show="form.passcode.$error.invalid">Passcode is incorrect.</span>
+        </div>
+        <div class="control"><button type="submit" class="button is-primary">Submit</button></div>
+    </form>
 </div>
 <br/>
-<br/>
 <div class="column is-half is-offset-one-quarter">
-    <p class="content">For any other queries please contact us at <b>coderdojo@bankwest.com.au</b></p>
+    <p class="content center-text">For any other queries please contact us at <b>coderdojo@bankwest.com.au</b></p>
 </div>
 
 
