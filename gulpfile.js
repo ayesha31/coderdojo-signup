@@ -15,7 +15,9 @@ var express = require('express');
 var runSequence = require('run-sequence');
 var fs = require('fs');
 
-require('dotenv').load();
+if (fs.existsSync('.env')) {
+    require('dotenv').load();
+}
 var envConfig = require('./server/app.js').config;
 
 
