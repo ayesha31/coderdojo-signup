@@ -2,7 +2,7 @@
     {{vm.text.information}}
 </div>
 
-<form name="form">
+<form name="form" role=form ng-submit="vm.submit()">
     <h3 class="title">Ninja (Participant) Information</h3>
     <p>Note that this event is available to ninjas aged 7 to 17 and all ninjas under the age of 12 must be accompanied by an adult at all times</p>
     </br>
@@ -23,7 +23,10 @@
             <div class="column is-2 control">
                 <label class="label">Date of Birth</label>
                 <p class="control">
-                    <input type="date" class="input" name="ninjaBday{{$index}}" placeholder="Ninja Last Name" ng-model="ninja.dateOfBirth" required datepicker-popup is-open="opened" min-date="vm.minDate" max-date="vm.maxDate" close-text="Close" min="{{vm.minDate}}" max="{{vm.maxDate}}" ng-blur="vm.validateDateOfBirth(ninja, $index)"/>
+                    <input type="date" class="input" name="ninjaBday{{$index}}" placeholder="Ninja Last Name" ng-model="ninja.dateOfBirth" required
+                           datepicker-popup is-open="opened" min-date="vm.minDate" max-date="vm.maxDate" close-text="Close"
+                           min="{{vm.minDate}}" max="{{vm.maxDate}}" ng-min="{{vm.minDate}}" ng-max="{{vm.maxDate}}"
+                           ng-blur="vm.validateDateOfBirth(ninja, $index)"/>
                     <span class="help is-danger" ng-if="form['ninjaBday'+$index].$error.invalid">This event is open to ninjas aged 7 to 17.</span>
                 </p>
             </div>
@@ -42,7 +45,7 @@
             <i class="fa fa-plus"></i>&nbsp;&nbsp;Add Another Ninja
         </button>
     </p>
-    <h3 class="title">Actvities</h3>
+    <h3 class="title">Activities</h3>
     <p class="content">We run a range of activities for the ninjas, what activities would they be interested in? (Tick all that apply) Note: this does not
         effect what activities they can partake in</p>
     <p class="control">
@@ -94,13 +97,15 @@
             <div class="column is-3 control">
                 <label class="label">First Name</label>
                 <p class="control">
-                    <input type="text" class="input" name="parentFirstName" placeholder="Parent First Name" ng-model="vm.applicant.bwContact.firstName" ng-required="!vm.applicant.isExternal && !vm.applicant.parent.isBwEmployee"/>
+                    <input type="text" class="input" name="parentFirstName" placeholder="Parent First Name" ng-model="vm.applicant.bwContact.firstName"
+                           ng-required="!vm.applicant.isExternal && !vm.applicant.parent.isBwEmployee"/>
                 </p>
             </div>
             <div class="column is-3 control">
                 <label class="label">Last Name</label>
                 <p class="control">
-                    <input type="text" class="input" name="parentLastName" placeholder="Parent Last Name" ng-model="vm.applicant.bwContact.lastName" ng-required="!vm.applicant.isExternal && !vm.applicant.parent.isBwEmployee"/>
+                    <input type="text" class="input" name="parentLastName" placeholder="Parent Last Name" ng-model="vm.applicant.bwContact.lastName"
+                           ng-required="!vm.applicant.isExternal && !vm.applicant.parent.isBwEmployee"/>
                 </p>
             </div>
         </div>
@@ -119,7 +124,7 @@
         <textarea class="textarea" ng-model="vm.applicant.comments" placeholder="Comments" ></textarea>
     </p>
     <p class="control">
-        <button type="submit" class="button is-primary" ng-click="vm.submit()">Submit Registration</button>
+        <button type="submit" class="button is-primary">Submit Registration</button>
     </p>
 </form>
 </br>

@@ -48,16 +48,21 @@
         }
 
         function submit() {
-            ApplicantService.sendApplicant();
+            var invalid = false;
+
+            for(var i = 0; i < ApplicantService.applicant.ninjas.length; i++) {
+                invalid = $scope.form['ninjaBday' + i].$error.invalid;
+            }
+
+            if(!($scope.form.$error.invalid || invalid)) {
+                ApplicantService.sendApplicant();
+            }
         }
 
         function validateDateOfBirth(ninja, index) {
             var ninjaString = 'ninjaBday' + index;
-            if(vm.minDate > ninja.dateOfBirth.getTime() || vm.maxDate < ninja.dateOfBirth.getTime()) {
-                $scope.form[ninjaString].$error.invalid = true;
-            } else {
-                $scope.form[ninjaString].$error.invalid = false;
-            }
+            $scope.form[ninjaString].$error.invalid = vm.minDate > ninja.dateOfBirth.getTime() || vm.maxDate < ninja.dateOfBirth.getTime();
+            ApplicantService.applicant.ninjas[index].under12 = new Date().setFullYear(today.getFullYear() - 12) < ninja.dateOfBirth.getTime();
         }
     }
 })();
