@@ -14,14 +14,12 @@
             ninjas: [{}],
             isExternal: false,
             passcode: '',
-            activities: [],
+            activities: {},
             parent: {},
             under12: false
         };
 
         function sendApplicant() {
-            console.log(applicantData);
-
             $http.post('/api/ninja', {
                 data: applicantData
             }).then(function (res) {

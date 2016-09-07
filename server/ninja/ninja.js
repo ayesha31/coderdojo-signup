@@ -1,7 +1,5 @@
 module.exports = function (app, db) {
     'use strict';
-
-    // TODO: activities are not working
     var ninjaSchema = db.Schema({
         ninjas: [
             {
@@ -11,7 +9,7 @@ module.exports = function (app, db) {
                 under12: Boolean
             }
         ],
-        activities: [{}],
+        activities: {},
         isExternal: Boolean,
         regularDojo: String,
         bwContact: {
