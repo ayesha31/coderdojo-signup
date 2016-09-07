@@ -25,7 +25,7 @@
         vm.passcode = '';
  
         vm.submitPasscode = function() {
-            $http.get('/api/ninja', { params: {passcode: vm.passcode.toLowerCase() }})
+            $http.get('/api/ninja', { params: {passcode: vm.passcode }})
                 .then(function(res) {
                     if(res.data.passcodeSuccessful) {
                         if(checkPlacesRemaining(res.data)) {
