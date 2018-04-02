@@ -21,8 +21,8 @@
             ],
             photoWaiver: 'By participating in this CoderDojo Event, you understand that photos/video may be taken of your child and/or yourself by Bankwest '
                 + 'and/or CoderDojo WA and that these photos/videos may be used in social or other media to promote Bankwest\'s support of CoderDojo and the '
-                + 'CoderDojo movement. By attending, you agree to the use of your and/or your child\'s image for the purposes of promoting CoderDojo/Bankwest.',
-            photoWaiverSubtext: 'By checking this box, you understand and give permission for CoderDojo WA and Bankwest to use photomedia of your child and/or '
+                + 'CoderDojo movement.',
+            photoWaiverSubtext: 'By checking this box, you give consent for CoderDojo WA and Bankwest to use photomedia of your child and/or '
                 + 'yourself at the Dojo event to promote the CoderDojo movement.',
             acceptedMessage: 'You have successfully signed up for ' + eventInfo.name + (isGirlsDojo ? ' ' : ' We will be sending you a calendar invite shortly. ')
                 + 'Please remember that if a ninja is under the age of 12 an adult must attend the sessions with them and accompany them at all times. '
